@@ -1,1 +1,50 @@
-block content
+include _configs
+
+doctype html
+html.no-js(lang=language)
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable = no")
+    meta(name="apple-mobile-web-app-capable" content="yes")
+    meta(name="apple-mobile-web-app-title" content="Miskre")
+    meta(name="apple-mobile-web-app-status-bar-style" content="black")
+    link(rel="apple-touch-icon" href="/assets/img/icon.png")
+    link(rel="apple-touch-startup-image" href="/assets/img/launch.png")
+    link(rel="icon" href="/assets/img/favicon.png" type="image/png")
+    link(rel="stylesheet" href="/assets/css/index.css")
+    title miskre - empowering the decentralized world
+    // facebook graph markup
+    meta(property="og:url" content="https://home.miskre.org/")
+    meta(property="og:title" content="miskre - A community driven blockchain")
+    meta(property="og:description" content="A revolutionary blockchain project that will change money as we know it.")
+    meta(property="og:type" content="article")
+    meta(property="fb:app_id" content="725786064476346")
+    meta(property="og:image" content="https://home.miskre.org/assets/img/og.jpg")
+    meta(property="og:image:secure_url" content="https://home.miskre.org/assets/img/og.jpg")
+    meta(property="og:image:type" content="image/jpeg")
+    meta(property="og:image:width" content="600")
+    meta(property="og:image:height" content="315")
+    +google-analytic
+  body
+    #menu.h
+      block menu
+    #top-bar
+      a.menu(href="#" data-aos="fade-right" data-aos-duration="1000")
+        img(src="/assets/img/menu.svg")
+      a.logo(href=__l('home') data-aos="fade-down" data-aos-duration="1000")
+        img(src="/assets/img/logo.svg")
+      block primary
+    #social-bar(data-aos="fade-right" data-aos-duration="1000")
+      +social-links
+    block preloads
+    .remodal-bg
+      +language-modal
+      block modals
+      block content
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.3/jquery.timeago.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/remodal/1.1.1/remodal.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.2.0/aos.js")
+    block js
+    script(src="/assets/js/explorer.dist.js")

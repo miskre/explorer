@@ -1,0 +1,211 @@
+.tos-modal
+  text-align left
+  background-color rgba(#000, .95)
+  max-width 700px
+  p
+    color smoke
+    font-size 14px
+    line-height 1.6em
+    margin 0
+    &:not(:last-child)
+      margin-bottom 15px
+  h1
+    color white
+    font-weight bold
+    margin-bottom 20px
+
+#whitelist-register
+#whitelist-login
+#whitelist-user
+  label
+    display block
+    color white
+    text-transform uppercase
+    margin-bottom 20px
+    font-size 11px
+    > input
+    > select
+      margin-top 10px
+  select
+  input[type=text]
+  input[type=email]
+  input[type=number]
+  input[type=password]
+  input[type=date]
+    display block
+    appearance none
+    border none
+    background-color jet
+    width 100%
+    // max-width 500px
+    font-size 16px
+    line-height 24px
+    padding 15px 12px
+    color white
+    font-weight 100
+    font-family font-family-sans-serif
+    transition background-color .5s ease-in-out
+    border-radius 0
+    text-transform none
+    outline none
+    &:focus
+      background-color oil
+  select
+    background-image url(../img/dropdown.svg)
+    background-repeat no-repeat
+    background-position center right 15px
+    padding-right 40px
+  .status
+    padding 20px
+    border none
+    background-color #000
+    color base
+    line-height 22px
+    p
+      margin-bottom 10px
+      &:last-child
+        margin-bottom 0
+  .{switch-class}
+    > *
+      vertical-align top
+    .caption
+      color smoke
+      display inline-block
+      margin-left 10px
+  button
+    appearance none
+    border none
+    display inline-block
+    color white
+    font-weight bold
+    font-size 16px
+    padding 18px 30px
+    transition opacity .5s ease-in-out
+    main-gradient(45deg)
+    &.{disabled-class}
+      opacity 5
+  .top-link
+    color white
+    font-size 16px
+    margin-bottom 20px
+    a
+      main-gradient(left)
+      display inline-block
+      font-weight bold
+      -webkit-background-clip text
+      -webkit-text-fill-color transparent
+  .image-picker
+    width 100%
+    height 0
+    padding-top 60%
+    background-size cover
+    background-position center
+    cursor pointer
+    position relative
+    &:before
+      content ''
+      z-index -2
+      position absolute
+      top 0
+      bottom 0
+      left 0
+      right 0
+      background-color darken(jet, 5)
+      transition background-color .5s ease-in-out
+    &:hover
+      &:before
+        background-color jet
+    &:after
+      content ''
+      z-index -1
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+      background-repeat no-repeat
+      background-position center
+    &.front
+    &.back
+    &.selfie
+      &:after
+        background-size 120px
+        opacity .2
+    &.front:after
+      background-image url(../img/front.svg)
+    &.back:after
+      background-image url(../img/back.svg)
+    &.selfie:after
+      background-image url(../img/selfie.svg)
+    input
+      width 0
+      height 0
+      opacity 0
+      display none
+  .radio-group
+    margin-bottom 20px
+  .radio
+    margin-bottom 15px
+    > input[type=radio]
+      width 0
+      height 0
+      opacity 0
+      display none
+      + label
+        margin 0
+        font-size 14px
+        text-transform none
+        &:before
+          content ''
+          background-color white
+          display inline-block
+          border 4px solid white
+          width 16px
+          height @width
+          border-radius @width
+          vertical-align top
+          margin-right 10px
+      &:checked + label:before
+        border-color white
+        background-color active-color
+        
+  .steps
+    display flex
+    flex-direction row
+    counter-reset steps
+    margin-bottom 30px
+    > a
+      position relative
+      counter-increment steps
+      padding 20px
+      background-color jet
+      text-transform uppercase
+      font-size 12px
+      color white
+      font-weight bold
+      transition background-color .5s ease-in-out
+      &:hover
+        background-color oil
+      &.{active-class}
+        main-gradient(left)
+      &:before
+        @media medium
+          content counter(steps)
+          display inline-block
+          width 20px
+          height @width
+          line-height @height
+          text-align center
+          background-color rgba(#000, .25)
+          color white
+          margin-right 10px
+      &:not(:last-child):not(.{active-class})
+        &:after
+          content ''
+          display block
+          width 1px
+          background-color rgba(black, .5)
+          position absolute
+          right 0
+          top 10px
+          bottom @top

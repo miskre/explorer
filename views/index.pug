@@ -1,10 +1,46 @@
 extends _layout
 
 block content
-  pre= count
-  ul.blocks
-    each b in blocks
-      li
-        a.hash(href='/blocks/' + b.hash)= b.hash
-        .size= b.size
-  pre= JSON.stringify(blocks, null, 2)
+  #explorer
+
+    .rw
+      .cl
+        .part-title network status
+        ul.info.bg.sm-3.md-5.lg-7
+          li
+            .info.stamp
+              .name Last Block Index
+              .value= count
+
+
+    .rw
+      .cl.lg-6
+        .part-title newest blocks
+        ul.blocks
+          each b in blocks
+            li
+              .block.stamp
+                .index= b.index
+                .clf
+                  .l
+                    a.hash(href='/blocks/' + b.hash title=b.hash)= __h(b.hash)
+                  .r
+                    time.ago(datetime=new Date(b.time * 1000))= b.time
+                .meta.size= b.size
+                .meta.confirmations= b.confirmations
+      .cl.lg-6
+        .part-title newest transactions
+        ul.transactions
+          each t in transactions
+            li
+              .transaction.stamp
+                a.hash(href='/transactions/' + t.txid title=t.txid)= __h(t.txid)
+                .size.meta= t.size
+                .type= t.type
+                .sys-fee= t.sys_fee
+                .net-fee= t.net_fee
+                .confirmations= t.confirmations
+                a.blockhash(href='/blocks/' + t.blockhash title=t.blockhash)= __h(t.blockhash)
+
+    pre= JSON.stringify(blocks, null, 2)
+    pre= JSON.stringify(transactions, null, 2)

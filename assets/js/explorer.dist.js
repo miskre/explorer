@@ -1,0 +1,1 @@
+function timeago(){$.fn.timeago&&$("time.ago").timeago()}$(document).ready(function(){timeago()});
