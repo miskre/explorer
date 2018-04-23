@@ -1,0 +1,20 @@
+{
+  "name": "explore.miskre.org",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon --exec babel-node index.js"
+  },
+  "author": "Gia <gia@coa.vn>",
+  "license": "ISC",
+  "dependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-latest": "^6.24.1",
+    "express": "^4.16.3",
+    "neo-api": "^1.0.3",
+    "node-json-rpc": "0.0.1",
+    "pug": "^2.0.3"
+  }
+}

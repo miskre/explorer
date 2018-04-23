@@ -1,0 +1,10 @@
+extends _layout
+
+block content
+  pre= count
+  ul.blocks
+    each b in blocks
+      li
+        a.hash(href='/blocks/' + b.hash)= b.hash
+        .size= b.size
+  pre= JSON.stringify(blocks, null, 2)
