@@ -13,9 +13,9 @@ block content
               .value= count
 
 
-    .rw
+    .rw.sp-30
       .cl.lg-6
-        .part-title newest blocks
+        .part-title latest blocks
         ul.blocks
           each b in blocks
             li
@@ -29,18 +29,19 @@ block content
                 .meta.size= b.size
                 .meta.confirmations= b.confirmations
       .cl.lg-6
-        .part-title newest transactions
+        .part-title latest transactions
         ul.transactions
           each t in transactions
             li
               .transaction.stamp
-                a.hash(href='/transactions/' + t.txid title=t.txid)= __h(t.txid)
+                div
+                  a.hash(href='/transactions/' + t.txid title=t.txid)= __h(t.txid)
                 .size.meta= t.size
-                .type= t.type
-                .sys-fee= t.sys_fee
-                .net-fee= t.net_fee
-                .confirmations= t.confirmations
-                a.blockhash(href='/blocks/' + t.blockhash title=t.blockhash)= __h(t.blockhash)
+                .type.meta= t.type
+                .sys-fee.meta= t.sys_fee
+                .net-fee.meta= t.net_fee
+                .confirmations.meta= t.confirmations
+                a.blockhash.meta(href='/blocks/' + t.blockhash title=t.blockhash)= __h(t.blockhash)
 
-    pre= JSON.stringify(blocks, null, 2)
-    pre= JSON.stringify(transactions, null, 2)
+    // pre= JSON.stringify(blocks, null, 2)
+    // pre= JSON.stringify(transactions, null, 2)

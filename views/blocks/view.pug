@@ -1,13 +1,5 @@
 extends ../_layout
 
 block content
-  ul.transactions
-    each tx in block.tx
-      li
-        a.txid(href='/transactions/' + tx.txid)= tx.txid
-        .size= tx.size
-        .type= tx.type
-        .sys-fee= tx.sys_fee
-        .net-fee= tx.net_fee
-        .nonce= tx.noune
-  pre= JSON.stringify(block, null, 2)
+  #explorer
+    pre= JSON.stringify(block, null, 2)

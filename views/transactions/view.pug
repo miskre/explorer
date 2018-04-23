@@ -1,11 +1,5 @@
 extends ../_layout
 
 block content
-  .txid= transaction.txid
-  .size= transaction.size
-  .type= transaction.type
-  .nonce= transaction.nonce
-  a.block(href='/blocks/' + transaction.blockhash)= transaction.blockhash
-  .blocktime= transaction.blocktime
-  .confirmations= transaction.confirmations
-  pre= JSON.stringify(transaction, null, 2)
+  #explorer
+    pre= JSON.stringify(transaction, null, 2)
