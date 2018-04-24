@@ -1,0 +1,132 @@
+@import 'gia.ui/gia.ui'
+
+html
+body
+  background-color #111
+
+body
+  min-height 100vh
+  background-image url(bridge.jpeg)
+  background-repeat no-repeat
+  background-size cover
+
+.overlay
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+
+.window
+  small-padding = 20px
+  medium-padding = 25px
+  large-padding = 30px
+  padding()
+    padding-left small-padding
+    padding-right @padding-left
+    @media medium
+      padding-left medium-padding
+      padding-right @padding-left
+    @media large
+      padding-left large-padding
+      padding-right @padding-left
+  border 1px solid lighten(#111, 1)
+  position absolute
+  background-color #1a1a1a
+  max-width 100%
+  box-shadow 0 20px 40px 0 rgba(black, .2)
+  max-height 100vh
+  overflow-x hidden
+  overflow-y scroll
+  @media small-only
+    position initial
+  .padding
+    padding()
+  .x
+    display block
+    width 32px
+    heigh @width
+    text-align center
+    color white
+    cursor pointer
+    line-height @width
+    position absolute
+    right 0
+    top 0
+    background-color lighten(#111, 2)
+  .title
+    position relative
+    .big
+      height 100px
+    em
+      position absolute
+      font-size 80px
+      font-weight bold
+      color #1f1f1f
+      font-style normal
+      top -10px
+      left -20px
+      pointer-events none
+    img.logo
+      margin 40px 0 0 30px
+      position relative
+      width 96px
+      z-index 1
+
+.part-title
+  color steel
+  font-weight bold
+  font-size 11px
+  text-transform uppercase
+  margin-bottom 10px
+  
+ul.info-bar
+  background-color #111
+  margin 0
+  padding 0
+  list-style none
+  overflow-x scroll
+  font-size 0
+  > li
+    position relative
+    display inline-block
+    padding 10px 15px
+    &:after
+      content ''
+      display block
+      width 1px
+      position absolute
+      top 12px
+      bottom @top
+      right 0
+      background-color #1a1a1a
+    .name
+      font-size 10px
+      color tuatara
+      text-transform uppercase
+    .value
+      font-size 13px
+      color smoke
+  
+ul.blocks
+ul.transactions
+  margin 0
+  padding 0
+  list-style none
+  @media medium
+    max-height 470px
+    overflow-y scroll
+  li
+    padding 8px 0
+    &:not(:last-child)
+      border-bottom 1px solid jet
+  .name
+    color white
+    font-weight bold
+    cursor pointer
+    font-family font-family-monospace
+    font-size 13px
+  .time
+    color base
+    font-size 12px
+    

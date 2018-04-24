@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import explorer from './explorer'
 import sync from './sync'
 
@@ -8,6 +9,7 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', './views')
 app.use('/assets', express.static('./assets'))
+app.use(cors())
 
 app.use(function(req, res, next) {
   res.locals = {

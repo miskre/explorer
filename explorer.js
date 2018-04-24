@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
       console.log(e)
       return res.status(500).json(500)
     }
-    res.render('index', {
+    res.json({
       count,
       ...data
     })
@@ -49,13 +49,8 @@ router.get('/blocks/:id', async (req, res) => {
         console.log(e)
         res.status(500).json(e)
       }
-      if (block) {
-        res.render('blocks/view', {
-          block
-        })
-      } else {
-        res.status(404).json(404)
-      }
+      if (block) res.json(block)
+      else res.status(404).json(404)
     })
 })
 
@@ -67,13 +62,8 @@ router.get('/transactions/:id', async (req, res) => {
         console.log(e)
         res.status(500).json(e)
       }
-      if (transaction) {
-        res.render('transactions/view', {
-          transaction
-        })
-      } else {
-        res.status(404).json(404)
-      }
+      if (transaction) res.json(transaction)
+      else res.status(404).json(404)
     })
 })
 
@@ -85,13 +75,8 @@ router.get('/addresses/:id', async (req, res) => {
         console.log(e)
         res.status(500).json(e)
       }
-      if (address) {
-        res.render('addresses/view', {
-          address
-        })
-      } else {
-        res.status(404).json(404)
-      }
+      if (address) res.render(address)
+      else res.status(404).json(404)
     })
 })
 
