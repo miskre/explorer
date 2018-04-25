@@ -12,6 +12,8 @@ body
   background-size cover
   
 #desktop
+  position relative
+  z-index 1
   ul.icons
     margin 0
     padding 0
@@ -37,6 +39,8 @@ body
       text-shadow 0 3px 5px rgba(black, .33)
 
 #windows-manager
+  position relative
+  z-index 2
   
   .overlay
     position fixed
@@ -67,9 +71,10 @@ body
     background-color #1a1a1a
     max-width 100%
     box-shadow 0 20px 40px 0 rgba(black, .33)
-    max-height 100vh
     pointer-events all
+    max-height 100vh
     @media small-only
+      max-height none
       position initial
     h1
       font-size 16px
