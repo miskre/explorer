@@ -13,7 +13,7 @@ api.getTransactionByHash = (hash) => {
 }
 
 api.getBlockByHash = (hash) => {
-  return api.get(`/transactions/${hash}`)
+  return api.get(`/blocks/${hash}`)
 }
 
 api.getAddressByHash = (hash) => {
