@@ -36,8 +36,6 @@ body
   max-width 100%
   box-shadow 0 20px 40px 0 rgba(black, .2)
   max-height 100vh
-  overflow-x hidden
-  overflow-y scroll
   @media small-only
     position initial
   .padding
@@ -58,6 +56,7 @@ body
     position relative
     .big
       height 100px
+      overflow-x hidden
     em
       position absolute
       font-size 80px
@@ -107,15 +106,17 @@ ul.info-bar
     .value
       font-size 13px
       color smoke
+      
+.blocks-panel
+  height 440px
+.transactions-panel
+  height 440px
   
 ul.blocks
 ul.transactions
   margin 0
   padding 0
   list-style none
-  @media medium
-    max-height 470px
-    overflow-y scroll
   li
     padding 8px 0
     &:not(:last-child)

@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueTimeago from 'vue-timeago'
-import VueDraggableResizable from 'vue-draggable-resizable'
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import App from './App'
 import router from './router'
 
@@ -13,9 +13,9 @@ Vue.use(VueTimeago, {
     'en-US': require('vue-timeago/locales/en-US.json')
   }
 })
-Vue.component('vue-draggable-resizable', VueDraggableResizable)
 
 Vue.config.productionTip = false
+Vue.component('scroller', VuePerfectScrollbar)
 
 /* eslint-disable no-new */
 new Vue({

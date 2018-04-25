@@ -5,29 +5,32 @@
         em explorer
         img.logo(src="../assets/logo.svg")
       div(slot="content")
-        ul.info-bar
-          li
-            .name Block Height
-            .value(v-text="info.lastBlockIndex")
-          li
-            .name Secs Per Block
-            .value(v-text="15")
+        scrollbar.info-panel
+          ul.info-bar
+            li
+              .name Block Height
+              .value(v-text="info.lastBlockIndex")
+            li
+              .name Secs Per Block
+              .value(v-text="15")
         .padding.pv-30
           .rw
             .cl.lg-6
               .part-title Latest Blocks
-              ul.blocks
-                li(v-for="b in blocks")
-                  .stamp.block
-                    .hash.name(v-text="__h(b.hash)")
-                    timeago.time(:since="b.time * 1000")
+              scroller.blocks-panel
+                ul.blocks
+                  li(v-for="b in blocks")
+                    .stamp.block
+                      .hash.name(v-text="__h(b.hash)")
+                      timeago.time(:since="b.time * 1000")
             .cl.lg-6
               .part-title Latest Transactions
-              ul.transactions
-                li(v-for="t in transactions")
-                  .stamp.transaction
-                    .txid.name(v-text="__h(t.txid)")
-                    timeago.time(:since="t.blocktime * 1000")
+              scroller.transactions-panel
+                ul.transactions
+                  li(v-for="t in transactions")
+                    .stamp.transaction
+                      .txid.name(v-text="__h(t.txid)")
+                      timeago.time(:since="t.blocktime * 1000")
 </template>
 
 <script>

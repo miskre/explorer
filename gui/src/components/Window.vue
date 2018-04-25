@@ -2,10 +2,11 @@
   .overlay
     .window(:style="{width, left, top}" ref="window")
       span.x(v-if="closeable") &times;
-      .title(@mousedown="dragStart")
-        slot(name="title")
-      .content
-        slot(name="content")
+      scrollbar
+        .title(@mousedown="dragStart")
+          slot(name="title")
+        .content
+          slot(name="content")
 </template>
 
 <script>
