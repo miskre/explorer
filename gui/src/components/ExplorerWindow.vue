@@ -1,5 +1,5 @@
 <template lang="pug">
-  window.home(:hook="hook")
+  window.home(:hook="hook" width="600px")
     .big(slot="title")
       em explorer
       img.logo(src="../assets/logo.svg")
