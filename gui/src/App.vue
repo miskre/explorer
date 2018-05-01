@@ -51,6 +51,13 @@ export default {
           label: 'guide',
           type: 'Guide',
           params: {}
+        },
+        wallet: {
+          icon: require('./assets/icon.package.svg'),
+          id: 'wallet',
+          label: 'wallet',
+          type: 'Wallet',
+          params: {}
         }
       }
     }

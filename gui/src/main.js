@@ -10,6 +10,7 @@ import store from './store'
 import 'vue-awesome/icons'
 
 import Icon from 'vue-awesome/components/Icon'
+import VueQr from 'vue-qr'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import Window from './components/Window'
 import Debug from '@/components/Debug'
@@ -28,6 +29,7 @@ Vue.use(VueTimeago, {
 Vue.component('window', Window)
 Vue.component('scroller', VuePerfectScrollbar)
 Vue.component('icon', Icon)
+Vue.component('qr', VueQr)
 Vue.component('debug', Debug)
 
 /* eslint-disable no-new */

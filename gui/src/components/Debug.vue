@@ -1,6 +1,7 @@
 <template lang="pug">
-  pre.debug
-    code {{ JSON.stringify(value, null, 2) }}
+  pre.debug(v-if="typeof value !== 'undefined'")
+    code(v-if="typeof value === 'object'" v-text="JSON.stringify(value, null, 2)")
+    code(v-else v-text="value")
 </template>
 
 <script>

@@ -32,6 +32,7 @@ export default {
         case 'Explorer':
         case 'Documentation':
         case 'Guide':
+        case 'Wallet':
           return this.pushWindow({...cmd, destroyed: false})
       }
     }
