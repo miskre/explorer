@@ -4,7 +4,8 @@
       li(v-for="i, k in icons" :key="k")
         .frame(@dblclick.prevent="open(i)")
           img.icon(:src="i.icon")
-          .label(v-text="i.label")
+          .tc
+            .label(v-text="i.label")
 
 </template>
 

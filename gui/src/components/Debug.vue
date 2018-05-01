@@ -1,5 +1,5 @@
 <template lang="pug">
-  pre
+  pre.debug
     code {{ JSON.stringify(value, null, 2) }}
 </template>
 

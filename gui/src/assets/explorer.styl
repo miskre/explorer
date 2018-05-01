@@ -1,15 +1,36 @@
 @import 'gia.ui/gia.ui'
+@import 'scroller'
+
+border-style = 1px solid smoke
 
 html
 body
   background-color #111
 
 body
-  background-image url(bridge.jpeg)
+  background-image url(bulb.jpeg)
   min-height 100vh
-  background-color #111
+  background-color #222
   background-repeat no-repeat
   background-size cover
+
+label
+  color tuatara
+  font-size 12px
+  display block
+  margin-bottom 10px
+  > :first-child
+    margin-top 5px
+    color jet
+    font-size 13px
+    font-weight bold
+    font-family font-family-monospace
+
+a
+  cursor pointer
+
+a.hash
+  color active-color
 
 #desktop
   position relative
@@ -33,10 +54,13 @@ body
       filter drop-shadow(0px 3px 5px rgba(black, .33))
     .label
       font-family font-family-monospace
-      display block
+      display inline-block
       color white
+      font-weight bold
       font-size 12px
-      text-shadow 0 3px 5px rgba(black, .33)
+      background-color rgba(black, .7)
+      padding 2px 7px
+      border-radius radius
 
 #windows-manager
   position relative
@@ -66,11 +90,10 @@ body
         padding-left large-padding
         padding-right @padding-left
     transition opacity .5s ease-in-out
-    border 1px solid lighten(#111, 1)
     position absolute
     background-color #1a1a1a
     max-width 100%
-    box-shadow 0 20px 40px 0 rgba(black, .33)
+    box-shadow 0 20px 40px 0 rgba(black, .2)
     pointer-events all
     max-height 100vh
     @media small-only
@@ -79,19 +102,25 @@ body
     h1
       font-size 16px
       font-weight bold
-      color white
+      color black
     p
-      color steel
+      color tuatara
       font-size 13px
     pre
-    code
-      background-color black
+      background-color lighten(black, 5)
       border-radius 0
-      margin 0
+      word-break break-all
+      white-space normal
     code
       font-family font-family-monospace
       font-size 12px
-      word-break break-word
+    .{grid-container-class}
+      overflow-x hidden
+    .debug
+      margin 0
+    .guide
+      *
+        font-family font-family-monospace
     .padding
       padd()
     .x
@@ -112,16 +141,18 @@ body
         height 100px
         overflow-x hidden
         position relative
+        cursor normal
       .small
         color white
         padding 10px
         font-size 12px
         font-weight bold
+        cursor normal
       em
         position absolute
         font-size 80px
         font-weight bold
-        color #1f1f1f
+        color #222222
         font-style normal
         top -10px
         left -20px
@@ -133,7 +164,7 @@ body
         z-index 1
 
   .part-title
-    color steel
+    color jet
     font-weight bold
     font-size 11px
     text-transform uppercase
@@ -161,15 +192,58 @@ body
           background-color #1a1a1a
       .name
         font-size 10px
-        color tuatara
+        color steel
         text-transform uppercase
       .value
         font-size 13px
         color smoke
 
+  .content
+    background-color darken(white, 1)
+
   .blocks-panel
     @media medium
       height 440px
+
+  .block-panel
+    .hash
+      font-weight bold
+      font-size 13px
+      font-family font-family-monospace
+    .invocation
+    .verification
+      background-color lighten(active-color, 55)
+      border-color darken(@background-color, 10)
+    ul.transactions
+      margin 0 0 20px 0
+      padding 0
+      list-style none
+      > li
+        color tuatara
+        padding 5px 0
+        &:not(:last-child)
+          border-bottom border-style
+      .type
+        font-size 12px
+
+  .navigations
+    clearfix()
+    font-size 12px
+    color snow
+    .previous
+    .next
+      cursor pointer
+    .previous
+      float left
+      &:before
+        content '⟵'
+        margin-right 5px
+    .next
+      float right
+      &:after
+        content '⟶'
+        margin-left 5px
+
   .transactions-panel
     @media medium
       height 440px
@@ -182,13 +256,13 @@ body
     li
       padding 8px 0
       &:not(:last-child)
-        border-bottom 1px solid jet
+        border-bottom border-style
     .name
-      color white
+      color active-color
       font-weight bold
       cursor pointer
       font-family font-family-monospace
       font-size 13px
     .time
-      color base
+      color tuatara
       font-size 12px

@@ -57,6 +57,7 @@ const actions = {
   },
 
   pushWindow ({ commit }, win) {
+    console.log('push window')
     commit(types.WINDOW_PUSHED, win)
   }
 
