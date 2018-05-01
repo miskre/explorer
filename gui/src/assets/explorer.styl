@@ -1,27 +1,27 @@
 @import 'gia.ui/gia.ui'
 @import 'scroller'
 
-border-style = 1px solid smoke
+border-style = 1px solid lighten(black, 13)
 
 html
 body
   background-color #111
 
 body
-  background-image url(bulb.jpeg)
+  background-image url(solar.jpeg)
   min-height 100vh
   background-color #222
   background-repeat no-repeat
   background-size cover
 
 label
-  color tuatara
+  color monsoon
   font-size 12px
   display block
   margin-bottom 10px
   > :first-child
     margin-top 5px
-    color jet
+    color white
     font-size 13px
     font-weight bold
     font-family font-family-monospace
@@ -30,7 +30,8 @@ a
   cursor pointer
 
 a.hash
-  color active-color
+a.name
+  color white
 
 #desktop
   position relative
@@ -94,6 +95,7 @@ a.hash
     background-color #1a1a1a
     max-width 100%
     box-shadow 0 20px 40px 0 rgba(black, .2)
+    border 1px solid #333
     pointer-events all
     max-height 100vh
     @media small-only
@@ -102,9 +104,8 @@ a.hash
     h1
       font-size 16px
       font-weight bold
-      color black
+      color white
     p
-      color tuatara
       font-size 13px
     pre
       background-color lighten(black, 5)
@@ -164,7 +165,7 @@ a.hash
         z-index 1
 
   .part-title
-    color jet
+    color monsoon
     font-weight bold
     font-size 11px
     text-transform uppercase
@@ -199,7 +200,8 @@ a.hash
         color smoke
 
   .content
-    background-color darken(white, 1)
+    color steel
+  //   background-color darken(white, 1)
 
   .blocks-panel
     @media medium
@@ -210,16 +212,11 @@ a.hash
       font-weight bold
       font-size 13px
       font-family font-family-monospace
-    .invocation
-    .verification
-      background-color lighten(active-color, 55)
-      border-color darken(@background-color, 10)
     ul.transactions
       margin 0 0 20px 0
       padding 0
       list-style none
       > li
-        color tuatara
         padding 5px 0
         &:not(:last-child)
           border-bottom border-style
@@ -229,9 +226,10 @@ a.hash
   .navigations
     clearfix()
     font-size 12px
-    color snow
+    font-weight bold
     .previous
     .next
+      color snow
       cursor pointer
     .previous
       float left
@@ -258,11 +256,11 @@ a.hash
       &:not(:last-child)
         border-bottom border-style
     .name
-      color active-color
+      color white
       font-weight bold
       cursor pointer
       font-family font-family-monospace
       font-size 13px
     .time
-      color tuatara
+      color steel
       font-size 12px
