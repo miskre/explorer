@@ -2,7 +2,7 @@
   window.documentation(:hook="hook" width="700px")
     .big(slot="title")
       em docs
-      img.logo(src="../assets/logo.svg")
+      img.logo(src="@/assets/logo.svg")
     div(slot="content")
       scroller.info-panel
         ul.info-bar

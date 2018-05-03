@@ -8,30 +8,15 @@
       TransactionWindow(v-else-if="w.type === 'Transaction'" v-bind="params(w)")
       WalletWindow(v-else-if="w.type === 'Wallet'" v-bind="params(w)")
       PaperWalletWindow(v-else-if="w.type === 'PaperWallet'" v-bind="params(w)")
-
 </template>
 
 <script>
 import {mapActions} from 'vuex'
-import ExplorerWindow from './ExplorerWindow'
-import DocumentationWindow from './DocumentationWindow'
-import GuideWindow from './GuideWindow'
-import BlockWindow from './BlockWindow'
-import TransactionWindow from './TransactionWindow'
-import WalletWindow from './WalletWindow'
-import PaperWalletWindow from './PaperWalletWindow'
+import windows from './Windows'
 
 export default {
   name: 'WindowsManager',
-  components: {
-    ExplorerWindow,
-    GuideWindow,
-    DocumentationWindow,
-    BlockWindow,
-    TransactionWindow,
-    WalletWindow,
-    PaperWalletWindow
-  },
+  components: windows,
   props: {
     windows: {
       type: Object,

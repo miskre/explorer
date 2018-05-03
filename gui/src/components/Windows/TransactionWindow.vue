@@ -46,8 +46,8 @@
 <script>
 import Vue from 'vue'
 import {mapActions} from 'vuex'
-import api from '../common/api'
-import {__h} from '../common/helpers'
+import api from '@/common/api'
+import {__h} from '@/common/helpers'
 
 export default {
   name: 'TransactionWindow',

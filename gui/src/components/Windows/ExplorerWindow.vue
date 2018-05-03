@@ -2,7 +2,7 @@
   window.home(:hook="hook" width="600px")
     .big(slot="title")
       em explorer
-      img.logo(src="../assets/logo.svg")
+      img.logo(src="@/assets/logo.svg")
     div(slot="content")
       scroller.info-panel
         ul.info-bar
@@ -35,8 +35,8 @@
 <script>
 import Vue from 'vue'
 import {mapActions} from 'vuex'
-import api from '../common/api'
-import {__h} from '../common/helpers'
+import api from '@/common/api'
+import {__h} from '@/common/helpers'
 
 export default {
   name: 'ExplorerWindow',

@@ -2,7 +2,7 @@
   window.guide(:hook="hook" width="700px")
     .big(slot="title")
       em guide
-      img.logo(src="../assets/logo.svg")
+      img.logo(src="@/assets/logo.svg")
     div(slot="content")
       scroller.info-panel
         ul.info-bar
