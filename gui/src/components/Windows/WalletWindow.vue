@@ -1,5 +1,5 @@
 <template lang="pug">
-  window.home(:hook="hook" width="500px")
+  window.home(:hook="hook" width="600px")
     .big(slot="title")
       em wallet
       img.logo(src="@/assets/logo.svg")
@@ -22,7 +22,7 @@
           .cl.md-8
             scroller.wallet-panel
 
-              .padding.pv-20(v-if="tab === 'create'")
+              .tab-content(v-if="tab === 'create'")
                 form#generate-key(@submit.stop.prevent="generateKey")
                   label Password &mdash; Optional
                     input(:type="createShowPassword ? 'text' : 'password'" v-model="createPassword" autocomplated="off")
@@ -36,20 +36,34 @@
                   .memo Generate private key will take a while with ecryption mode on.
                   button.bt.a.mb-10(type="submit") create
 
-              .padding.pv-20(v-else-if="tab === 'login'")
+              .tab-content(v-else-if="tab === 'login'")
                 template(v-if="isLogged")
+                  .part-title Links
                   ul.links
                     li
                       a.link(@click.stop.prevent="openPaperWallet(paperWallet)") Paper Wallet
                     li
-                      a.link(@click.stop.prevent="createKeystore") Create Keystore
-                    li
-                      a.link(@click.stop.prevent="loggedOut") Log out
+                      a.link(@click.stop.prevent="logout") Log out
+                  .part-title Generate new keystore
+                  form#new-keystore(@submit.stop.prevent="generateKeystore")
+                    label Password &mdash; Required
+                      input(:type="newKeystoreShowPassword ? 'text' : 'password'" v-model="newKeystorePassword" required)
+                    .rw
+                      .cl.sm-6.tl
+                        label.mb-5(for="show-password") Show password
+                      .cl.sm-6.tr
+                        .sw.ib.mb-0
+                          input#new-keystore-show-password(type="checkbox" v-model="newKeystoreShowPassword")
+                          label(for="new-keystore-show-password")
+                    .memo Generate new keystore will take a while with ecryption mode on.
+                    button.bt.a.mb-10(type="submit") download
+
                 template(v-else)
                   form#login(@submit.stop.prevent="login")
-                    .error(v-if="loginError" v-text="loginError")
                     label Keystore
-                      input(type="file" @change="openKeystore")
+                      .file
+                        input(type="file" @change="openKeystore")
+                    .error(v-if="loginError" v-text="loginError")
                     div(v-if="loginPasswordNeeded")
                       label Password &mdash; Required
                         input(type="password" v-model="loginPassword" required)
@@ -79,7 +93,9 @@ export default {
       createShowPassword: false,
       loginPasswordNeeded: false,
       loginError: null,
-      loginPassword: ''
+      loginPassword: '',
+      newKeystorePassword: '',
+      newKeystoreShowPassword: false
     }
   },
   computed: {
@@ -98,6 +114,7 @@ export default {
     checkKeystore (key) {
       try {
         this.loginError = null
+        this.loginPassword = ''
         const account = new wallet.Account(key)
         Vue.set(this, 'buffer', account)
         account.getPublicKey()
@@ -141,7 +158,27 @@ export default {
         this.loggedIn(this.buffer)
       }
     },
-    generateWallet () {},
+    logout () {
+      this.buffer = null
+      this.loginPassword = false
+      this.loginPasswordNeeded = false
+      this.newKeystoreShowPassword = false
+      this.newKeystorePassword = ''
+      this.loggedOut()
+    },
+    generateKeystore () {
+      const password = this.newKeystorePassword
+      this.newKeystorePassword = ''
+      const keystore = this.account.encrypt(password)
+      const encrypted = keystore.encrypted
+      const a = document.createElement('a')
+      a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(encrypted))
+      a.setAttribute('download', 'keystore.' + keystore.address + '.txt')
+      a.style.display = 'none'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    },
     generateKey () {
       const a = new wallet.Account()
       const w = {
@@ -163,6 +200,9 @@ export default {
         params
       })
     }
+  },
+  mounted () {
+    if (this.isLogged) this.tab = 'login'
   }
 }
 </script>

@@ -81,7 +81,7 @@ export default {
     },
     position () {
       if (!this.moved && this.$refs.window) {
-        this.top = (window.innerHeight - this.$refs.window.offsetHeight) / 2.5 + 'px'
+        this.top = '10vh'
         this.left = (window.innerWidth - this.$refs.window.offsetWidth) / 2 + 'px'
       }
     }

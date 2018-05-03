@@ -31,6 +31,10 @@ label
 input[type=file]
   width 100%
   overflow hidden
+  font-size 12px
+  font-family font-family-monospace
+  border 1px solid oil
+  padding 10px
 
 input
   &[type=text]
@@ -203,10 +207,16 @@ a.name
         z-index 1
 
   .part-title
-    color monsoon
+    color smoke
     font-weight bold
     font-size 11px
     text-transform uppercase
+    margin-bottom 10px
+    letter-spacing 1px
+
+  .error
+    font-size 12px
+    color danger-color
     margin-bottom 10px
 
   .side-bar
@@ -222,8 +232,14 @@ a.name
         padding 10px 15px
         cursor pointer
         &.{active-class}
-          background-color jet
+          background-color lighten(#111, 5)
           color white
+
+  .tab-content
+    padding 15px
+    @media medium
+      padding 20px 20px 15px 25px
+    background-color lighten(#111, 5)
 
   ul.info-bar
     background-color #111
