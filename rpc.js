@@ -1,7 +1,7 @@
 import rpc from 'node-json-rpc'
 const node = new rpc.Client({
-  host: '192.168.1.5',
-  port: 10331,
+  host: '192.168.1.103',
+  port: 10332,
   path: '/',
   strict: true
 })

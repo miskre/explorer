@@ -63,6 +63,12 @@ async function syncChain() {
   isSyncing = false
 }
 
+async function firstBlock() {
+  const block = await rpc.getBlock([0, 1])
+  console.log(JSON.stringify(block, null, 2))
+}
+
 syncInterval = setInterval(syncChain, 10000)
+// firstBlock()
 
 export default router
