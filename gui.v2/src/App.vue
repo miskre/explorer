@@ -38,6 +38,7 @@
         span(v-else-if="language === 'ko'") 안녕_세상
         span(v-else-if="language === 'de'") hallo_welt
         span(v-else) hello_world
+    modals-container
     router-view
 </template>
 

@@ -18,7 +18,7 @@
             .side-bar
               ul.tabs
                 li(:class="{a: tab === 'create'}" @click="tab = 'create'") Create
-                li(:class="{a: tab === 'login'}" @click="tab = 'login'" v-text="isLogged ? 'Logged In' : 'Login'")
+                li(:class="{a: tab === 'import'}" @click="tab = 'import'" v-text="isLogged ? 'Logged In' : 'Login'")
           .cl.md-8
             scroller.wallet-panel
 
@@ -36,7 +36,7 @@
                   .memo Generate private key will take a while with ecryption mode on.
                   button.bt.a.mb-10(type="submit") create
 
-              .tab-content(v-else-if="tab === 'login'")
+              .tab-content(v-else-if="tab === 'import'")
                 template(v-if="isLogged")
                   .part-title Links
                   ul.links

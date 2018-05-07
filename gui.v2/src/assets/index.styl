@@ -1,6 +1,8 @@
 @import 'fonts'
 @import 'gia.ui/gia.ui'
 @import 'animations'
+@import 'explorer'
+@import 'modals'
 
 main-gradient(direction = top)
   background linear-gradient(direction, #0ce4e1, #d855ff)
@@ -115,6 +117,21 @@ input
     padding 12px 20px
     main-gradient(30deg)
 
+.debug
+  background-color black
+
+.qr
+  margin 10px 0 0 0
+  > div
+    font-size 0
+.store
+  color white
+  font-family font-family-monospace
+  font-weight bold
+  font-size 14px
+  word-break break-all
+  margin 5px 0 10px 0
+
 .tabs
   display flex
   flex-direction row
@@ -124,14 +141,14 @@ input
     position relative
     counter-increment steps
     padding 20px
-    background-color jet
+    background-color #151515
     text-transform uppercase
     font-size 12px
     color white
     font-weight bold
     transition background-color .5s ease-in-out
     &:hover
-      background-color oil
+      background-color jet
     &.{active-class}
       main-gradient(45deg)
     &:not(:last-child):not(.{active-class})

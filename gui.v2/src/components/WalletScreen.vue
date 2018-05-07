@@ -22,9 +22,9 @@
                     .content
                       ul.links
                         li
-                          a.link(@click.stop.prevent="openPaperWallet(paperWallet)") Paper Wallet
+                          a.link(href="#" @click.stop.prevent="openPaperWallet(paperWallet)") Paper Wallet
                         li
-                          a.link(@click.stop.prevent="logout") Log out
+                          a.link(href="#" @click.stop.prevent="logout") Log out
                 li
                   .card
                     .caption Generate New Keystore
@@ -79,6 +79,7 @@
 import Vue from 'vue'
 import {mapActions, mapGetters} from 'vuex'
 import {wallet} from '@cityofzion/neon-js'
+import PaperWalletModal from '@/components/PaperWalletModal'
 
 window.wallet = wallet
 
@@ -117,6 +118,7 @@ export default {
       try {
         this.loginError = null
         this.loginPassword = ''
+        this.loginPasswordNeeded = false
         const account = new wallet.Account(key)
         Vue.set(this, 'buffer', account)
         account.getPublicKey()
@@ -155,6 +157,7 @@ export default {
               this.loginError = 'The entered password is invalid for this keystore file.'
               break
             default:
+              console.log(e)
               this.loginError = 'Decrypt error. Please re-check your input.'
           }
         }
@@ -201,17 +204,22 @@ export default {
       this.openPaperWallet(w)
     },
 
-    openPaperWallet (params) {
-      this.pushWindow({
-        id: `paper-wallet-${params.address}`,
-        type: 'PaperWallet',
-        params
+    openPaperWallet (w) {
+      this.$modal.show(PaperWalletModal, w, {
+        name: 'paper-wallet',
+        title: 'Paper Wallet',
+        draggable: '.header',
+        maxWidth: 500,
+        height: 'auto',
+        adaptive: true,
+        scrollable: true,
+        classes: 'paper-wallet-modal'
       })
     }
   },
 
   mounted () {
-    if (this.isLogged) this.tab = 'login'
+    if (this.isLogged) this.tab = 'import'
   }
 }
 </script>

@@ -16,7 +16,7 @@ const getters = {
   },
 
   paperWallet (state) {
-    if (state.account === null) return {}
+    if (state.account === null) return null
     if (typeof state.account._encrypted === 'undefined') {
       return {
         type: 'Normal',

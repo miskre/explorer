@@ -11,12 +11,17 @@ import 'vue-awesome/icons'
 
 import Icon from 'vue-awesome/components/Icon'
 import VueQr from 'vue-qr'
+import Vmodal from 'vue-js-modal'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import Debug from '@/components/Debug'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuex)
+Vue.use(Vmodal, {
+  componentName: 'modal',
+  dynamic: true
+})
 Vue.use(VueTimeago, {
   name: 'timeago',
   locale: 'en-US',
