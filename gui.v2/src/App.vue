@@ -39,6 +39,7 @@
         span(v-else-if="language === 'de'") hallo_welt
         span(v-else) hello_world
     modals-container
+    v-dialog
     router-view
 </template>
 

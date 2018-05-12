@@ -1,8 +1,10 @@
-import * as types from '../mutation-types'
 import Vue from 'vue'
+import * as types from '../mutation-types'
+import api from '@/common/api'
 
 const state = {
-  account: null
+  account: null,
+  accountState: null
 }
 
 const getters = {
@@ -13,6 +15,10 @@ const getters = {
 
   account (state) {
     return state.account
+  },
+
+  accountState (state) {
+    return state.accountState
   },
 
   paperWallet (state) {
@@ -39,8 +45,18 @@ const getters = {
 
 const actions = {
 
-  loggedIn ({commit}, account) {
+  loggedIn ({commit, dispatch}, account) {
     commit(types.ACCOUNT_LOGGED_IN, account)
+    dispatch('updateAccountState')
+  },
+
+  updateAccountState ({state, commit}) {
+    if (state.account === null) return
+    api.getAccountState(state.account.address)
+      .then(res => {
+        commit(types.ACCOUNT_STATE_UPDATED, res)
+      })
+      .catch(e => console.log(e))
   },
 
   loggedOut ({commit}) {
@@ -57,6 +73,10 @@ const mutations = {
 
   [types.ACCOUNT_LOGGED_OUT] (state) {
     Vue.set(state, 'account', null)
+  },
+
+  [types.ACCOUNT_STATE_UPDATED] (state, accountState) {
+    Vue.set(state, 'accountState', accountState)
   }
 
 }

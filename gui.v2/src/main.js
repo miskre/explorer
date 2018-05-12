@@ -20,7 +20,8 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 Vue.use(Vmodal, {
   componentName: 'modal',
-  dynamic: true
+  dynamic: true,
+  dialog: true
 })
 Vue.use(VueTimeago, {
   name: 'timeago',
