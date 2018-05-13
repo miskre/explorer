@@ -1,3 +1,5 @@
+import _ from 'underscore'
+import async from 'async'
 import express from 'express'
 import {
   State,
@@ -15,15 +17,57 @@ const router = express.Router()
 let syncInterval = null
 let isSyncing = false
 
+async function lookupTransaction(_id) {
+  return new Promise(async (resolve, reject) => {
+    Transaction
+      .findOne({_id})
+      .exec((e, tx) => {
+        if (e) return reject(e)
+        else return resolve(tx)
+      })
+  })
+}
+
 async function syncTransaction(hash) {
   return new Promise(async (resolve, reject) => {
     try {
       const transaction = await rpc.getRawTransaction([hash, 1])
+      // contract transaction
+      if (typeof transaction.vin !== 'undefined') {
+        const verbose = []
+        _.each(transaction.vin, async (vin) => {
+          const ref = await lookupTransaction(vin.txid)
+          if (ref) {
+            const res = ref.vout[vin.vout]
+            res.txid = vin.txid
+            verbose.push(res)
+          }
+        })
+        transaction.vin_verbose = verbose
+      }
+      // claim transaction
+      if (typeof transaction.claims !== 'undefined') {
+        const claims = []
+        const keys = []
+        _.each(transaction.claims, async (claim) => {
+          keys.push(`${claim.txid}_${claim.vout}`)
+          const ref = await lookupTransaction(claim.txid)
+          if (ref) {
+            const res = ref.vout[claim.vout]
+            res.txid = claim.txid
+            claims.push(res)
+          }
+        })
+        transaction.claims_verbose = claims
+        transaction.claims_keys_v1 = keys
+      }
+      // store into database
       Transaction.update({ _id: transaction.txid }, { _id: transaction.txid, ...transaction }, { upsert: true }, (e, res) => {
         if (e) reject(e)
         else resolve(res)
       })
     } catch (e) {
+      console.log(e)
       reject(e)
     }
   })
@@ -34,7 +78,7 @@ async function syncBlock(index) {
     try {
       const block = await rpc.getBlock([index, 1])
       for (let i in block.tx) {
-        console.log('transaction.sync: ' + block.tx[i].txid)
+        // console.log('transaction.sync: ' + block.tx[i].txid)
         await syncTransaction(block.tx[i].txid)
       }
       Block.update({ _id: block.hash }, { _id: block.hash, ...block }, { upsert: true }, (e, res) => {
@@ -52,10 +96,10 @@ async function syncChain() {
   isSyncing = true
   const currentHeight = await rpc.getBlockCount()
   const lastBlockHeight = await getState('lastBlockHeight', 0)
-  console.log('block.status: ' + lastBlockHeight + '/' + currentHeight)
+  // console.log('block.status: ' + lastBlockHeight + '/' + currentHeight)
   if (currentHeight > lastBlockHeight) {
     for (let i = lastBlockHeight; i < currentHeight; i ++) {
-      console.log('block.sync: ' + (i + 1) + '/' + currentHeight)
+      // console.log('block.sync: ' + (i + 1) + '/' + currentHeight)
       await syncBlock(i)
       await setState('lastBlockHeight', i)
     }
@@ -68,7 +112,7 @@ async function firstBlock() {
   console.log(JSON.stringify(block, null, 2))
 }
 
-syncInterval = setInterval(syncChain, 10000)
+syncInterval = setInterval(syncChain, 5000)
 // firstBlock()
 
 export default router
