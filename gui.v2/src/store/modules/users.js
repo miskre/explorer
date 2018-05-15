@@ -1,10 +1,11 @@
 import Vue from 'vue'
+import _ from 'underscore'
 import * as types from '../mutation-types'
-import api from '@/common/api'
+import api, {txid2hex} from '@/common/api'
 
 const state = {
   account: null,
-  accountState: null
+  balance: null
 }
 
 const getters = {
@@ -17,8 +18,8 @@ const getters = {
     return state.account
   },
 
-  accountState (state) {
-    return state.accountState
+  balance (state) {
+    return state.balance
   },
 
   paperWallet (state) {
@@ -47,16 +48,30 @@ const actions = {
 
   loggedIn ({commit, dispatch}, account) {
     commit(types.ACCOUNT_LOGGED_IN, account)
-    dispatch('updateAccountState')
+    dispatch('updateState')
   },
 
-  updateAccountState ({state, commit}) {
+  updateBalance ({state, commit}) {
     if (state.account === null) return
-    api.getAccountState(state.account.address)
+    state.balance = null
+    api.getAddressBalance(state.account.address)
       .then(res => {
-        commit(types.ACCOUNT_STATE_UPDATED, res)
+        _.each(res.data, (v, k) => {
+          if (k === 'net' || k === 'address') return
+          if (v.unspent) {
+            v.unspent = _.map(v.unspent, i => {
+              if (i.txid) i.txid = txid2hex(i.txid)
+              return i
+            })
+          }
+        })
+        commit(types.BALANCE_UPDATED, res.data)
       })
       .catch(e => console.log(e))
+  },
+
+  updateState ({state, dispatch, commit}) {
+    dispatch('updateBalance')
   },
 
   loggedOut ({commit}) {
@@ -75,8 +90,8 @@ const mutations = {
     Vue.set(state, 'account', null)
   },
 
-  [types.ACCOUNT_STATE_UPDATED] (state, accountState) {
-    Vue.set(state, 'accountState', accountState)
+  [types.BALANCE_UPDATED] (state, balance) {
+    Vue.set(state, 'balance', balance)
   }
 
 }

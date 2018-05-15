@@ -1,48 +1,46 @@
 <template lang="pug">
-  .wallet-info
-    .address(v-text="address")
-    .state(v-if="state")
-      a(href="#" @click.prevent="fetch") Refresh
-      ul.balances
-        li(v-for="b in state.balances")
-          .name(v-text="asset(b.asset).name")
-          .value
-            span.number(v-text="b.value")
-            span.symbol(v-text="asset(b.asset).symbol")
+  .wallet-info(v-if="account")
+    .address
+      span.hash.mr-10(v-text="account.address")
+      a(href="#" @click.prevent="updateState")
+        icon(name="sync")
+    .state
+      transition(name="fade" mode="out-in")
+        loading(v-if="balance === null" text="Synching Balances")
+        ul.balances.mv-15(v-else)
+          li(v-for="b, k in balance" v-if="['net', 'address'].indexOf(k) === -1")
+            .name(v-text="assetBySymbol(k).name")
+            asset(:value="b.balance" :symbol="k")
 </template>
 
 <script>
-import Vue from 'vue'
-import {asset} from '@/common/constants'
-import api from '@/common/api'
+import {mapGetters, mapActions} from 'vuex'
+import {__n} from '@/common/helpers'
+import {assetBySymbol} from '@/common/constants'
+import Asset from '@/components/Asset'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'WalletInfo',
 
-  props: {
-    address: {
-      type: String,
-      required: true
-    }
+  components: {
+    Asset,
+    Loading
   },
 
-  data () {
-    return {
-      state: null
-    }
+  computed: {
+    ...mapGetters({
+      account: 'users/account',
+      balance: 'users/balance'
+    })
   },
 
   methods: {
-    asset,
-    fetch () {
-      api.getAccountState(this.address)
-        .then(res => Vue.set(this, 'state', res))
-        .catch(e => console.log(e))
-    }
-  },
-
-  mounted () {
-    this.fetch()
+    __n,
+    assetBySymbol,
+    ...mapActions({
+      updateState: 'users/updateState'
+    })
   }
 }
 </script>

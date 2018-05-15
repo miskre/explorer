@@ -197,7 +197,7 @@ router.get('/addresses/:id/balance', (req, res) => {
         // sent,
         // received,
         // unspent,
-        totals,
+        // totals,
         ...state
       })
     })

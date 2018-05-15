@@ -78,7 +78,7 @@ async function syncBlock(index) {
     try {
       const block = await rpc.getBlock([index, 1])
       for (let i in block.tx) {
-        // console.log('transaction.sync: ' + block.tx[i].txid)
+        console.log('transaction.sync: ' + block.tx[i].txid)
         await syncTransaction(block.tx[i].txid)
       }
       Block.update({ _id: block.hash }, { _id: block.hash, ...block }, { upsert: true }, (e, res) => {
@@ -96,10 +96,10 @@ async function syncChain() {
   isSyncing = true
   const currentHeight = await rpc.getBlockCount()
   const lastBlockHeight = await getState('lastBlockHeight', 0)
-  // console.log('block.status: ' + lastBlockHeight + '/' + currentHeight)
+  console.log('block.status: ' + lastBlockHeight + '/' + currentHeight)
   if (currentHeight > lastBlockHeight) {
     for (let i = lastBlockHeight; i < currentHeight; i ++) {
-      // console.log('block.sync: ' + (i + 1) + '/' + currentHeight)
+      console.log('block.sync: ' + (i + 1) + '/' + currentHeight)
       await syncBlock(i)
       await setState('lastBlockHeight', i)
     }

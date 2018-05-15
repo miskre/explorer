@@ -1,3 +1,44 @@
+.loading
+  logo-size = 16px
+  // background-color lighten(black, 8)
+  text-align center
+  display table
+  width 100%
+  padding 15px 10px
+  margin 15px 0
+  .progress
+    display inline-block
+    position relative
+    width: logo-size * 1.1875
+    margin-right 10px
+    height @width
+  .text
+    display table-cell
+    vertical-align middle
+    color steel
+    font-size: (logo-size * .75)
+    letter-spacing 1px
+    text-transform uppercase
+    line-height: (logo-size * 1.2)
+    > *
+      vertical-align top
+  .mis
+  .kre
+    width logo-size
+    position absolute
+  .mis
+    left 0
+    animation-name mis
+    animation-duration 1s
+    animation-iteration-count infinite
+    animation-direction both
+  .kre
+    right 0
+    animation-name kre
+    animation-duration 1s
+    animation-iteration-count infinite
+    animation-direction both
+
 .blocks
 .transactions
   margin 0
@@ -9,3 +50,50 @@
       border-bottom 1px solid #1a1a1a
   .time
     color monsoon
+  .txid
+  .hash
+    display block
+    max-width 100%
+    text-overflow ellipsis
+    white-space nowrap
+    overflow hidden
+
+ul.balances
+  margin 0
+  padding 0
+  list-style none
+  > li
+    display block
+    background-color lighten(black, 8)
+    padding 10px 15px
+    &:not(:last-child)
+      margin-bottom 10px
+    .name
+      font-size 12px
+      color base
+
+.asset
+  display inline-block
+  .integer
+  .point
+  .fractional
+    font-family font-family-monospace
+    color white
+    font-weight bold
+  .integer
+    font-size 1.1em
+  .point
+  .fractional
+    font-size 1em
+  .symbol
+    font-weight normal
+    font-size 12px
+    color base
+    margin-left 5px
+
+.wallet-info
+  .address
+    color white
+    font-weight bold
+    font-family font-family-monospace
+    font-size 15px

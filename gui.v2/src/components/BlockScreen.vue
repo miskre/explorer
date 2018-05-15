@@ -4,15 +4,22 @@
       .fg
         .title(data-aos="fade-left")
           h1 block
-        debug(data-aos="fade-up" :value="block")
+        transition(name="fade" mode="out-in")
+          loading.tl(v-if="!block" text="Synching Block")
+          debug(v-else data-aos="fade-up" :value="block")
 </template>
 
 <script>
 import Vue from 'vue'
 import api from '@/common/api'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'BlockScreen',
+
+  components: {
+    Loading
+  },
 
   computed: {
     _id () {
@@ -22,12 +29,13 @@ export default {
 
   data () {
     return {
-      block: {}
+      block: null
     }
   },
 
   methods: {
     fetch () {
+      this.block = null
       api
         .getBlockByHash(this._id)
         .then(res => {

@@ -1,7 +1,7 @@
 <template lang="pug">
   #slides
     section#explorer.full-height
-      .bg(style="background-image: url(/static/window.jpeg)")
+      .bg(style="background-image: url(/static/magazine.jpeg)")
       .fg
         .title(data-aos="fade-left")
           h1 wallet
@@ -20,8 +20,10 @@
                   .card
                     .caption Wallet Manage
                     .content
-                      info(:address="account.address")
+                      info
                       ul.links
+                        li
+                          a.link(href="#" @click.stop.prevent="openWalletHistory(account.address)") Transactions History
                         li
                           a.link(href="#" @click.stop.prevent="openPaperWallet(paperWallet)") Paper Wallet
                         li
@@ -30,7 +32,7 @@
                   .card
                     .caption Transfer
                     .content
-                      transfer(:wallet="account")
+                      transfer
                 li
                   .card
                     .caption Generate New Keystore
@@ -68,6 +70,7 @@ import WalletCreate from '@/components/WalletCreate'
 import WalletTransfer from '@/components/WalletTransfer'
 import WalletGenerateKeystore from '@/components/WalletGenerateKeystore'
 import PaperWalletModal from '@/components/PaperWalletModal'
+import WalletHistoryModal from '@/components/WalletHistoryModal'
 
 export default {
   name: 'WalletScreen',
@@ -166,8 +169,8 @@ export default {
       this.loggedOut()
     },
 
-    openPaperWallet (w) {
-      this.$modal.show(PaperWalletModal, w, {
+    openPaperWallet (wallet) {
+      this.$modal.show(PaperWalletModal, wallet, {
         name: 'paper-wallet',
         title: 'Paper Wallet',
         draggable: '.header',
@@ -176,6 +179,21 @@ export default {
         adaptive: true,
         scrollable: true,
         classes: 'paper-wallet-modal'
+      })
+    },
+
+    openWalletHistory (address) {
+      this.$modal.show(WalletHistoryModal, {
+        address
+      }, {
+        name: 'wallet-history',
+        title: 'Wallet History',
+        draggable: '.header',
+        maxWidth: 500,
+        height: 'auto',
+        adaptive: true,
+        scrollable: true,
+        classes: 'wallet-history-modal'
       })
     }
   },

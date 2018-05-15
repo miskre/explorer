@@ -1,5 +1,5 @@
 <template lang="pug">
-  .modal
+  .modal.paper-wallet
     .header Paper Wallet
       a.x(href="#" @click.prevent="$modal.hide('paper-wallet')") &times;
     .content.p-20(ref="html")

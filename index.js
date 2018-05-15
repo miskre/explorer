@@ -57,6 +57,7 @@ app.use(function(req, res, next) {
     }
   }
   next()
+  // setTimeout(next, 2000)
 })
 
 function switcher(req, res, next) {

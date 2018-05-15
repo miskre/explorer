@@ -25,6 +25,14 @@ api.getAccountState = (address) => {
   return call('getaccountstate', [address])
 }
 
+api.getAddressBalance = (address) => {
+  return api.get(`/addresses/${address}/balance`)
+}
+
+api.getAddressHistory = (address) => {
+  return api.get(`/addresses/${address}/history`)
+}
+
 api.getVersion = () => {
   return rpc.get('/', {
     params: {
@@ -42,12 +50,12 @@ api.getBlockCount = () => {
 }
 
 api.sendRawTransaction = (tx) => {
-  return rpc.post('/', {
-    params: {
-      method: 'sendrawtransaction',
-      params: [tx]
-    }
-  })
+  return call('sendrawtransaction', [tx])
+}
+
+export function txid2hex (s) {
+  if (s.startsWith('0x')) return s.substr(2)
+  return s
 }
 
 export default api

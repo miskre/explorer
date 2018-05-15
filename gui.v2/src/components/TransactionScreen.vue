@@ -4,15 +4,22 @@
       .fg
         .title(data-aos="fade-left")
           h1 transaction
-        debug(data-aos="fade-up" :value="transaction")
+        transition(name="fade" mode="out-in")
+        loading.tl(v-if="!transaction" text="Synching Transaction")
+        debug(v-else data-aos="fade-up" :value="transaction")
 </template>
 
 <script>
 import Vue from 'vue'
 import api from '@/common/api'
+import Loading from '@/components/Loading'
 
 export default {
   name: 'TransactionScreen',
+
+  components: {
+    Loading
+  },
 
   computed: {
     _id () {
@@ -22,12 +29,13 @@ export default {
 
   data () {
     return {
-      transaction: {}
+      transaction: null
     }
   },
 
   methods: {
     fetch () {
+      this.transaction = null
       api
         .getTransactionByHash(this._id)
         .then(res => {
