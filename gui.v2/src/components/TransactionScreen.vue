@@ -20,6 +20,10 @@ import Loading from '@/components/Loading'
 export default {
   name: 'TransactionScreen',
 
+  metaInfo: {
+    title: 'transactions'
+  },
+
   components: {
     Loading
   },

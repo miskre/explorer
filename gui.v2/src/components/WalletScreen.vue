@@ -75,6 +75,10 @@ import WalletHistoryModal from '@/components/WalletHistoryModal'
 export default {
   name: 'WalletScreen',
 
+  metaInfo: {
+    title: 'wallet'
+  },
+
   components: {
     info: WalletInfo,
     create: WalletCreate,

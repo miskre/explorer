@@ -40,6 +40,10 @@ import Loading from '@/components/Loading'
 export default {
   name: 'Explorer',
 
+  metaInfo: {
+    title: 'explorer'
+  },
+
   components: {
     Loading
   },

@@ -20,6 +20,10 @@ import Loading from '@/components/Loading'
 export default {
   name: 'BlockScreen',
 
+  metaInfo: {
+    title: 'blocks'
+  },
+
   components: {
     Loading
   },

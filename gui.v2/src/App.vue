@@ -50,6 +50,11 @@ import 'aos/dist/aos.css'
 export default {
   name: 'App',
 
+  metaInfo: {
+    title: 'explorer',
+    titleTemplate: 'miskre - %s'
+  },
+
   data () {
     return {
       menuDisplayed: false,
