@@ -12,12 +12,10 @@ rpc
   .request
   .use(req => {
     if (req.params) {
-      req.params = {jsonrpc: '2.0', params: [], id: 1, ...req.params}
-      req.params.params = `[${req.params.params.toString()}]`
+      req.params = {jsonrpc: '2.0', params: '[]', id: 1, ...req.params}
     }
     if (req.data) {
-      req.data = {jsonrpc: '2.0', params: [], id: 1, ...req.data}
-      req.data.params = `[${req.data.params.toString()}]`
+      req.data = {jsonrpc: '2.0', params: '[]', id: 1, ...req.data}
     }
     return req
   }, e => {

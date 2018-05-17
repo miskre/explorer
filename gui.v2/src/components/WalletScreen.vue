@@ -84,7 +84,7 @@ export default {
 
   data () {
     return {
-      tab: 'create',
+      tab: 'import',
       buffer: null,
       passwordNeeded: false,
       error: null,
