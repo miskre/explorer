@@ -51,11 +51,7 @@ api.getBlockCount = () => {
 }
 
 api.sendRawTransaction = (tx) => {
-  return api.post('/send', {
-    data: {
-      transaction: tx
-    }
-  })
+  return call('sendrawtransaction', [tx])
 }
 
 export function txid2hex (s) {
