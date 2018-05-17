@@ -33,7 +33,7 @@ import _ from 'underscore'
 import {mapGetters, mapActions} from 'vuex'
 import {__n} from '@/common/helpers'
 import {assetHashes, assetByHash} from '@/common/constants'
-import Neon, {rpc, wallet} from '@cityofzion/neon-js'
+import Neon, {wallet} from '@cityofzion/neon-js'
 import api, {hex2txid} from '@/common/api'
 import Loading from '@/components/Loading'
 import Asset from '@/components/Asset'
@@ -48,13 +48,6 @@ Neon.CONST.ASSET_ID = {
   MIS: '2d0f3149aedeae16511c3bc72a339a0cf70eed1bd67a909bbc4b66b91875b825',
   KRE: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7'
 }
-
-Neon.add.network(new rpc.Network({
-  name: 'miskre',
-  extra: {
-    neonDB: 'http://192.168.1.12:8000'
-  }
-}))
 
 export default {
   name: 'WalletTransfer',

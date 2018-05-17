@@ -9,6 +9,7 @@ const production = {
 }
 
 export function env () {
+  console.log(process.env.NODE_ENV)
   switch (process.env.NODE_ENV) {
     case 'production': return production
     default: return development

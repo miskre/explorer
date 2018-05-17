@@ -51,7 +51,12 @@ api.getBlockCount = () => {
 }
 
 api.sendRawTransaction = (tx) => {
-  return call('sendrawtransaction', [tx])
+  return rpc.get('/', {
+    params: {
+      method: 'getblockcount',
+      params: [tx]
+    }
+  })
 }
 
 export function txid2hex (s) {
