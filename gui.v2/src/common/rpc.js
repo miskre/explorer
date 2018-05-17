@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const rpc = axios.create({
-  baseURL: 'http://192.168.1.200:10332'
+  baseURL: 'http://127.0.0.1:10332'
 })
 
 rpc.defaults.headers.common['Content-Type'] = 'application/json'

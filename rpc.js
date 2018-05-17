@@ -1,10 +1,7 @@
 import rpc from 'node-json-rpc'
-const node = new rpc.Client({
-  host: '192.168.1.200',
-  port: 10332,
-  path: '/',
-  strict: true
-})
+import {RPC_CLIENT} from './settings'
+
+const node = new rpc.Client(RPC_CLIENT)
 
 export function getAccountState(params = []) {
   return new Promise((resolve, reject) => {

@@ -9,6 +9,7 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', './views')
 app.use('/assets', express.static('./assets'))
+app.use('/', express.static('./gui.v2/dist'))
 app.use(cors())
 
 app.use(function(req, res, next) {
@@ -77,7 +78,7 @@ function switcher(req, res, next) {
   next()
 }
 
-app.use('/', switcher, explorer)
+app.use('/api', switcher, explorer)
 app.use('/sync', sync)
 
 app.listen(port)
