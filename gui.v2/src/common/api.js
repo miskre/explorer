@@ -53,7 +53,7 @@ api.getBlockCount = () => {
 api.sendRawTransaction = (tx) => {
   return rpc.get('/', {
     params: {
-      method: 'getblockcount',
+      method: 'sendrawtransaction',
       params: [tx]
     }
   })
