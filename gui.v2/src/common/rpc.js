@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const rpc = axios.create({
-  baseURL: 'http://127.0.0.1:10332'
+  baseURL: 'http://explorer.miskre.org:10332'
 })
 
 rpc.defaults.headers.common['Content-Type'] = 'application/json'

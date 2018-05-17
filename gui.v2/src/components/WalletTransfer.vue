@@ -70,7 +70,7 @@ export default {
       amount: 0,
       assetHash: null,
       isSending: false,
-      toAddress: 'AVsQo1FG9sTkvTuTi5o71z56rjxAaF5Db9'
+      toAddress: ''
     }
   },
 
