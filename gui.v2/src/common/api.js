@@ -1,8 +1,9 @@
 import axios from 'axios'
 import rpc, {call} from '@/common/rpc'
+import {env} from '@/common/settings'
 
 const api = axios.create({
-  baseURL: '/api'
+  baseURL: env().apiRoot
 })
 
 api.getStateInfo = () => {
@@ -50,7 +51,11 @@ api.getBlockCount = () => {
 }
 
 api.sendRawTransaction = (tx) => {
-  return call('sendrawtransaction', [tx])
+  return api.post('/send', {
+    data: {
+      transaction: tx
+    }
+  })
 }
 
 export function txid2hex (s) {
