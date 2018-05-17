@@ -31,7 +31,7 @@ rpc
 export default rpc
 
 export function call (method, params) {
-  return rpc.post('/', {
+  return rpc.get('/', {
     method,
     params
   })
