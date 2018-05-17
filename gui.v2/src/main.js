@@ -13,11 +13,13 @@ import Icon from 'vue-awesome/components/Icon'
 import VueQr from 'vue-qr'
 import Vmodal from 'vue-js-modal'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import VeeValidate from 'vee-validate'
 import Debug from '@/components/Debug'
 
 Vue.config.productionTip = false
 
 Vue.use(Vuex)
+Vue.use(VeeValidate)
 Vue.use(Vmodal, {
   componentName: 'modal',
   dynamic: true,

@@ -5,8 +5,11 @@
         .title(data-aos="fade-left")
           h1 block
         transition(name="fade" mode="out-in")
+          loading.tl(v-if="isLoading" text="Synching Block")
+          a.bt.a(v-else href="#" @click.prevent="fetch") Refresh
+        transition(name="fade" mode="out-in")
           loading.tl(v-if="!block" text="Synching Block")
-          debug(v-else data-aos="fade-up" :value="block")
+          debug(v-else-if="block" data-aos="fade-up" :value="block")
 </template>
 
 <script>
@@ -29,6 +32,8 @@ export default {
 
   data () {
     return {
+      isLoading: false,
+      error: null,
       block: null
     }
   },
@@ -36,12 +41,20 @@ export default {
   methods: {
     fetch () {
       this.block = null
+      this.error = null
+      this.isLoading = true
       api
         .getBlockByHash(this._id)
-        .then(res => {
-          Vue.set(this, 'block', res.data)
+        .then(res => Vue.set(this, 'block', res.data))
+        .catch(e => Vue.set(this, 'error', e))
+        .then(req => {
+          this.isLoading = false
         })
     }
+  },
+
+  watch: {
+    _id: this.fetch
   },
 
   mounted () {

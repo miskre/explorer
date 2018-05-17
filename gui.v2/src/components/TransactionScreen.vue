@@ -5,8 +5,11 @@
         .title(data-aos="fade-left")
           h1 transaction
         transition(name="fade" mode="out-in")
-        loading.tl(v-if="!transaction" text="Synching Transaction")
-        debug(v-else data-aos="fade-up" :value="transaction")
+          .ab.w(v-if="error") Transaction will appear after its block be processed on the network.
+        transition(name="fade" mode="out-in")
+          loading.tl(v-if="isLoading" text="Synching Transaction")
+          a.bt.a(v-else="isLoading" href="#" @click.prevent="fetch") Refresh
+        debug(v-if="transaction" data-aos="fade-up" :value="transaction")
 </template>
 
 <script>
@@ -29,6 +32,8 @@ export default {
 
   data () {
     return {
+      error: null,
+      isLoading: true,
       transaction: null
     }
   },
@@ -36,11 +41,21 @@ export default {
   methods: {
     fetch () {
       this.transaction = null
+      this.error = null
+      this.isLoading = true
       api
         .getTransactionByHash(this._id)
-        .then(res => {
-          Vue.set(this, 'transaction', res.data)
+        .then(res => Vue.set(this, 'transaction', res.data))
+        .catch(e => Vue.set(this, 'error', e))
+        .then(req => {
+          this.isLoading = false
         })
+    }
+  },
+
+  watch: {
+    _id () {
+      this.fetch()
     }
   },
 

@@ -5,7 +5,8 @@ export const assetHashes = {
     symbol: 'MIS',
     total: 20000000000,
     fractionalSize: 0,
-    format: '0,0'
+    format: '0,0',
+    step: 1
   },
   '0x602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7': {
     id: 2,
@@ -13,7 +14,8 @@ export const assetHashes = {
     symbol: 'KRE',
     total: 20000000000,
     fractionalSize: 6,
-    format: '0,0.000000'
+    format: '0,0.000000',
+    step: 0.1
   }
 }
 

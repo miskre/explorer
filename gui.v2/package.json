@@ -26,6 +26,7 @@
     "scrypt-js": "^2.0.3",
     "underscore": "^1.9.0",
     "uuid": "^3.2.1",
+    "vee-validate": "^2.0.9",
     "vue": "^2.5.2",
     "vue-awesome": "^3.0.0",
     "vue-draggable-resizable": "^1.7.1",

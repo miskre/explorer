@@ -53,7 +53,7 @@ const actions = {
 
   updateBalance ({state, commit}) {
     if (state.account === null) return
-    state.balance = null
+    commit(types.BALANCE_UPDATED, null)
     api.getAddressBalance(state.account.address)
       .then(res => {
         _.each(res.data, (v, k) => {

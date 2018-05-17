@@ -58,4 +58,8 @@ export function txid2hex (s) {
   return s
 }
 
+export function hex2txid (s) {
+  if (!s.startsWith('0x')) return '0x' + s
+}
+
 export default api
