@@ -11,8 +11,14 @@ rpc
   .interceptors
   .request
   .use(req => {
-    if (req.params) req.params = {jsonrpc: '2.0', params: '[]', id: 1, ...req.params}
-    if (req.data) req.data = {jsonrpc: '2.0', params: '[]', id: 1, ...req.data}
+    if (req.params) {
+      req.params = {jsonrpc: '2.0', params: [], id: 1, ...req.params}
+      req.params.params = `[${req.params.params.toString()}]`
+    }
+    if (req.data) {
+      req.data = {jsonrpc: '2.0', params: [], id: 1, ...req.data}
+      req.data.params = `[${req.data.params.toString()}]`
+    }
     return req
   }, e => {
     return Promise.reject(e)
