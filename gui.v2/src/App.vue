@@ -2,7 +2,7 @@
   #app
     transition(name="fade")
       #menu(v-if="menuDisplayed")
-        ul.navigations(@click.stop.prevent="toggleMenu")
+        ul.navigations(@click="toggleMenu")
           li
             a(href="https://home.miskre.org") home
           li
