@@ -58,14 +58,14 @@ router.get('/height', async (req, res) => {
 })
 
 router.post('/transactions/send', (req, res) => {
-  const tx = req.params.tx
+  const tx = req.body.tx
+  console.log('tx', tx)
   rpc
     .sendRawTransaction([tx])
     .then(result => {
       res.json(result)
     })
     .catch(e => {
-      console.log(e)
       res.status(403).json(e)
     })
 })

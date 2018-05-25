@@ -1,5 +1,4 @@
 import axios from 'axios'
-import rpc, {call} from '@/common/rpc'
 import {env} from '@/common/settings'
 
 const api = axios.create({
@@ -22,24 +21,12 @@ api.getAddressByHash = (hash) => {
   return api.get(`/addresses/${hash}`)
 }
 
-api.getAccountState = (address) => {
-  return call('getaccountstate', [address])
-}
-
 api.getAddressBalance = (address) => {
   return api.get(`/addresses/${address}/balance`)
 }
 
 api.getAddressHistory = (address) => {
   return api.get(`/addresses/${address}/history`)
-}
-
-api.getVersion = () => {
-  return rpc.get('/', {
-    params: {
-      method: 'getversion'
-    }
-  })
 }
 
 api.getBlockCount = () => {

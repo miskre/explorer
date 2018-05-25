@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import cors from 'cors'
 import explorer from './explorer'
 import sync from './sync'
@@ -10,6 +11,7 @@ app.set('view engine', 'pug')
 app.set('views', './views')
 app.use('/assets', express.static('./assets'))
 app.use('/', express.static('./gui.v2/dist'))
+app.use(bodyParser.json())
 app.use(cors())
 
 app.use(function(req, res, next) {
