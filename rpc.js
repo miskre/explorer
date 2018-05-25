@@ -49,8 +49,9 @@ export function getBlock(params = []) {
       method: 'getblock',
       params
     }, (e, res) => {
-      if (e) reject(e)
-      else resolve(res.result)
+      if (e) return reject(e)
+      if (res.error) return reject(res.error)
+      if (res.result) return resolve(res.result)
     })
   })
 }
@@ -62,8 +63,24 @@ export function getRawTransaction(params = []) {
       method: 'getrawtransaction',
       params
     }, (e, res) => {
-      if (e) reject(e)
-      else resolve(res.result)
+      if (e) return reject(e)
+      if (res.error) return reject(res.error)
+      if (res.result) return resolve(res.result)
+    })
+  })
+}
+
+export function sendRawTransaction(params = []) {
+  return new Promise((resolve, reject) => {
+    node.call({
+      id: 1,
+      method: 'sendrawtransaction',
+      params
+    }, (e, res) => {
+      console.log(e, res)
+      if (e) return reject(e)
+      if (res.error) return reject(res.error)
+      if (res.result) return resolve(res.result)
     })
   })
 }

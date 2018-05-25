@@ -4,6 +4,8 @@
       #menu(v-if="menuDisplayed")
         ul.navigations(@click.stop.prevent="toggleMenu")
           li
+            router-link(to="https://home.miskre.org") home
+          li
             router-link(:to="{name: 'Explorer'}") explorer
           li
             router-link(:to="{name: 'Wallet'}") wallet

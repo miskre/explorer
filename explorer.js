@@ -12,6 +12,7 @@ import {
   deleteState
 } from './chains'
 import {ASSETS, ASSET_HASHES} from './settings'
+import * as rpc from './rpc'
 
 function newAssetTable(def = {}) {
   return _.reduce(ASSET_HASHES, (obj, i) => {
@@ -51,7 +52,25 @@ router.get('/', async (req, res) => {
   })
 })
 
-router.get('/blocks/:id', async (req, res) => {
+router.get('/height', async (req, res) => {
+  const count = await getState('lastBlockHeight')
+  res.json(count)
+})
+
+router.post('/transactions/send', (req, res) => {
+  const tx = req.params.tx
+  rpc
+    .sendRawTransaction([tx])
+    .then(result => {
+      res.json(result)
+    })
+    .catch(e => {
+      console.log(e)
+      res.status(403).json(e)
+    })
+})
+
+router.get('/_blocks/:id', async (req, res) => {
   Block
     .findOne({_id: req.params.id})
     .exec((e, block) => {
@@ -64,7 +83,17 @@ router.get('/blocks/:id', async (req, res) => {
     })
 })
 
-router.get('/transactions/:id', async (req, res) => {
+router.get('/blocks/:id', async (req, res) => {
+  rpc.getBlock([req.params.id, 1])
+    .then(result => {
+      res.json(result)
+    })
+    .catch(e => {
+      res.status(404).json(e)
+    })
+})
+
+router.get('/_transactions/:id', async (req, res) => {
   Transaction
     .findOne({_id: req.params.id})
     .exec((e, transaction) => {
@@ -74,6 +103,16 @@ router.get('/transactions/:id', async (req, res) => {
       }
       if (transaction) res.json(transaction)
       else res.status(404).json(404)
+    })
+})
+
+router.get('/transactions/:id', async (req, res) => {
+  rpc.getRawTransaction([req.params.id, 1])
+    .then(result => {
+      res.json(result)
+    })
+    .catch(e => {
+      res.status(404).json(e)
     })
 })
 

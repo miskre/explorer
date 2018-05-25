@@ -11,7 +11,8 @@ export const ASSET_HASHES = {
 }
 
 export const RPC_CLIENT = {
-  host: ENV === 'production' ? '127.0.0.1' : '192.168.1.200',
+  // host: ENV === 'production' ? '127.0.0.1' : '192.168.1.200',
+  host: 'explorer.miskre.org',
   port: 10332,
   path: '/',
   strict: true

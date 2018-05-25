@@ -43,18 +43,11 @@ api.getVersion = () => {
 }
 
 api.getBlockCount = () => {
-  return rpc.get('/', {
-    params: {
-      method: 'getblockcount'
-    }
-  })
+  return api.get('/height')
 }
 
 api.sendRawTransaction = (tx) => {
-  return rpc.post('/', {
-    method: 'sendrawtransaction',
-    params: [tx]
-  })
+  return api.post('/transactions/send', {tx})
 }
 
 export function txid2hex (s) {
