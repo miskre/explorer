@@ -25,6 +25,10 @@ api.getAddressBalance = (address) => {
   return api.get(`/addresses/${address}/balance`)
 }
 
+api.getAddressClaims = (address) => {
+  return api.get(`/addresses/${address}/claims`)
+}
+
 api.getAddressHistory = (address) => {
   return api.get(`/addresses/${address}/history`)
 }

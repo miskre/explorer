@@ -10,7 +10,21 @@
         ul.balances.mv-15(v-else)
           li(v-for="b, k in balance" v-if="['net', 'address'].indexOf(k) === -1")
             .name(v-text="assetBySymbol(k).name")
-            asset(:value="b.balance" :symbol="k")
+            .status(v-if="k === 'KRE'")
+              .rw
+                .cl.sm-4 Current
+                .cl.sm-8.tr
+                  asset(:value="b.balance" :symbol="k")
+              template(v-if="claims")
+                .rw
+                  .cl.sm-4 Claimable
+                  .cl.sm-8.tr
+                    asset(:value="claims.available" :symbol="k")
+                .rw
+                  .cl.sm-4 Unavailable
+                  .cl.sm-8.tr
+                    asset(:value="claims.unavailable" :symbol="k")
+            asset(v-else :value="b.balance" :symbol="k")
 </template>
 
 <script>
@@ -31,7 +45,8 @@ export default {
   computed: {
     ...mapGetters({
       account: 'users/account',
-      balance: 'users/balance'
+      balance: 'users/balance',
+      claims: 'users/claims'
     })
   },
 

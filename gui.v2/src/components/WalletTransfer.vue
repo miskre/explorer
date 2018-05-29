@@ -19,7 +19,7 @@
         .cl
           transition(name="fade" mode="out-in")
             .help.mv-10(v-if="assetHash") Current balance:&nbsp;
-              a(href="#" @click="fulfill")
+              a(href="#" @click.prevent="fulfill")
                 asset.max(:value="max" :symbol="symbol")
             .help.mv-10(v-else) Select an asset to send
       .memo Double check the address. If you send to wrong address, the assets will gone forever.
@@ -33,21 +33,10 @@ import _ from 'underscore'
 import {mapGetters, mapActions} from 'vuex'
 import {__n} from '@/common/helpers'
 import {assetHashes, assetByHash} from '@/common/constants'
-import Neon, {wallet} from '@cityofzion/neon-js'
+import Neon, {wallet} from '@/common/neon'
 import api, {hex2txid} from '@/common/api'
 import Loading from '@/components/Loading'
 import Asset from '@/components/Asset'
-
-Neon.CONST.ASSETS = {
-  '2d0f3149aedeae16511c3bc72a339a0cf70eed1bd67a909bbc4b66b91875b825': 'MIS',
-  '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7': 'KRE',
-  MIS: 'MIS',
-  KRE: 'KRE'
-}
-Neon.CONST.ASSET_ID = {
-  MIS: '2d0f3149aedeae16511c3bc72a339a0cf70eed1bd67a909bbc4b66b91875b825',
-  KRE: '602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7'
-}
 
 export default {
   name: 'WalletTransfer',

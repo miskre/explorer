@@ -1,7 +1,7 @@
 export const assetHashes = {
   '0x2d0f3149aedeae16511c3bc72a339a0cf70eed1bd67a909bbc4b66b91875b825': {
     id: 1,
-    name: 'MIS - Governing Token',
+    name: 'MIS - Governance Token',
     symbol: 'MIS',
     total: 20000000000,
     fractionalSize: 0,

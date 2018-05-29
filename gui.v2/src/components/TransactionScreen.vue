@@ -5,10 +5,9 @@
         .title(data-aos="fade-left")
           h1 transaction
         transition(name="fade" mode="out-in")
-          .ab.w(v-if="error") Transaction will appear after its block be processed on the network.
-        transition(name="fade" mode="out-in")
           loading.tl(v-if="isLoading" text="Synching Transaction")
           a.bt.a(v-else="isLoading" href="#" @click.prevent="fetch") Refresh
+        .ab.w(v-if="!isConfirmed") This transaction have no confirmations yet. It will be processed by the blockchain soon.
         debug(v-if="transaction" data-aos="fade-up" :value="transaction")
 </template>
 
@@ -31,6 +30,11 @@ export default {
   computed: {
     _id () {
       return this.$route.params._id
+    },
+    isConfirmed () {
+      if (this.transaction === null) return true
+      if (this.transaction.confirmations) return true
+      return false
     }
   },
 

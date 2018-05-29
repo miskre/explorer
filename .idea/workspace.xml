@@ -2,35 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99fbb6d2-b392-48df-9de3-60d38f6e4db1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/gui.v2/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.v2/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.v2/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/explorer.js" beforeDir="false" afterPath="$PROJECT_DIR$/explorer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui.v2/src/assets/explorer.styl" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/assets/explorer.styl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.v2/src/assets/index.styl" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/assets/index.styl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.v2/src/components/ExplorerScreen.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/components/ExplorerScreen.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.v2/src/common/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/common/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.v2/src/components/WalletInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/components/WalletInfo.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui.v2/src/components/WalletScreen.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/components/WalletScreen.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui.v2/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.v2/src/components/WalletTransfer.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/components/WalletTransfer.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gui.v2/src/store/modules/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/store/modules/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/src/components/Windows/WalletWindow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gui/src/components/Windows/WalletWindow.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gui.v2/src/store/mutation-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/gui.v2/src/store/mutation-types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc.js" beforeDir="false" afterPath="$PROJECT_DIR$/rpc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sync.js" beforeDir="false" afterPath="$PROJECT_DIR$/sync.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/gui.v2/index.html">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/miskre.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="714">
+              <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -39,6 +46,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/miskre.js" />
+      </list>
+    </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
@@ -49,16 +63,25 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/gui.v2/node_modules" />
+    <handled-path value="$PROJECT_DIR$/gui/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/gui.v2/package.json" />
+      <path value="$PROJECT_DIR$/gui/package.json" />
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1963" />
-    <option name="y" value="703" />
-    <option name="width" value="1605" />
-    <option name="height" value="1146" />
+    <option name="x" value="1094" />
+    <option name="y" value="572" />
+    <option name="width" value="1609" />
+    <option name="height" value="1151" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -66,6 +89,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -78,16 +102,23 @@
               <item name="explorer" type="462c0819:PsiDirectoryNode" />
               <item name="gui.v2" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="explorer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="explorer" type="462c0819:PsiDirectoryNode" />
+              <item name="gui.v2" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -101,6 +132,9 @@
       </list>
     </option>
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="99fbb6d2-b392-48df-9de3-60d38f6e4db1" name="Default" comment="" />
@@ -109,39 +143,61 @@
       <option name="presentableId" value="Default" />
       <updated>1525692836561</updated>
       <workItem from="1525692849812" duration="66000" />
+      <workItem from="1527581338404" duration="153000" />
+      <workItem from="1527581765820" duration="22000" />
+      <workItem from="1527581810178" duration="78000" />
+      <workItem from="1527581906955" duration="693000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66000" />
+    <option name="totallyTimeSpent" value="1012000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1714" y="614" width="1400" height="1000" extended-state="0" />
+    <frame x="955" y="500" width="1404" height="1004" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info id="npm" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24981685" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/gui.v2/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="306">
+          <caret line="18" column="51" selection-start-line="18" selection-start-column="51" selection-end-line="18" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/miskre.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

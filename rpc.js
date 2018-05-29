@@ -1,86 +1,63 @@
-import rpc from 'node-json-rpc'
-import {RPC_CLIENT} from './settings'
+import {JSONRPC_BASE_URL} from './settings'
+import axios from 'axios'
 
-const node = new rpc.Client(RPC_CLIENT)
+const rpc = axios.create({
+  baseURL: JSONRPC_BASE_URL,
+  timeout: 1000,
+  headers: {
+    'Content-Type': 'application/json-rpc'
+  }
+})
 
-export function getAccountState(params = []) {
+rpc.interceptors.response.use(null, (error) => {
+  if (error.config && error.response) {
+    console.log(error)
+    return rpc.request(error.config)
+  }
+
+  return Promise.reject(error);
+});
+
+function call(method, params = []) {
   return new Promise((resolve, reject) => {
-    node.call({
-      id: 1,
-      method: 'getaccountstate',
-      params
-    }, (e, res) => {
-      if (e) reject(e)
-      else resolve(res.result)
+    rpc.post('/', {
+      jsonrpc: '2.0',
+      method,
+      params,
+      id: Date.now()
+    })
+    .then(res => {
+      if (res.data.error) return reject(res.data.error)
+      if (res.data.code && res.data.code < 0) return reject(res.data)
+      if (res.data.result) return resolve(res.data.result)
+      reject(new Error('No result returned.'))
+    })
+    .catch(e => {
+      reject(e)
     })
   })
+}
+
+export function getAccountState(params = []) {
+  return call('getaccountstate', params)
 }
 
 export function getBestBlock(params = []) {
-  return new Promise((resolve, reject) => {
-    node.call({
-      id: 1,
-      method: 'getbestblock',
-      params
-    }, (e, res) => {
-      if (e) reject(e)
-      else resolve(res.result)
-    })
-  })
+  return call('getbestblock', params)
 }
 
 export function getBlockCount(params = []) {
-  return new Promise((resolve, reject) => {
-    node.call({
-      id: 1,
-      method: 'getblockcount',
-      params
-    }, (e, res) => {
-      if (e) reject(e)
-      else resolve(res.result)
-    })
-  })
+  return call('getblockcount', params)
 }
 
 export function getBlock(params = []) {
-  return new Promise((resolve, reject) => {
-    node.call({
-      id: 1,
-      method: 'getblock',
-      params
-    }, (e, res) => {
-      if (e) return reject(e)
-      if (res.error) return reject(res.error)
-      if (res.result) return resolve(res.result)
-    })
-  })
+  return call('getblock', params)
 }
 
 export function getRawTransaction(params = []) {
-  return new Promise((resolve, reject) => {
-    node.call({
-      id: 1,
-      method: 'getrawtransaction',
-      params
-    }, (e, res) => {
-      if (e) return reject(e)
-      if (res.error) return reject(res.error)
-      if (res.result) return resolve(res.result)
-    })
-  })
+  return call('getrawtransaction', params)
 }
 
 export function sendRawTransaction(params = []) {
-  return new Promise((resolve, reject) => {
-    node.call({
-      id: 1,
-      method: 'sendrawtransaction',
-      params
-    }, (e, res) => {
-      console.log(e, res)
-      if (e) return reject(e)
-      if (res.error) return reject(res.error)
-      if (res.result) return resolve(res.result)
-    })
-  })
+  return call('sendrawtransaction', params)
 }

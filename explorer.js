@@ -2,6 +2,7 @@ import _ from 'underscore'
 import express from 'express'
 import async from 'async'
 import BigNumber from 'bignumber.js'
+
 import {
   State,
   Address,
@@ -11,15 +12,24 @@ import {
   setState,
   deleteState
 } from './chains'
-import {ASSETS, ASSET_HASHES} from './settings'
-import * as rpc from './rpc'
 
-function newAssetTable(def = {}) {
-  return _.reduce(ASSET_HASHES, (obj, i) => {
-    obj[i] = _.clone(def)
-    return obj
-  }, {})
-}
+import {
+  NET,
+  ASSETS,
+  ASSET_HASHES,
+  newAssetTable,
+  calculateBonus,
+  findAddressTransactions,
+  findAddressClaimTransactions,
+  getReceivedTransactions,
+  getSentTransactions,
+  zipTransactions,
+  getUnspent,
+  getTotals,
+  computeClaims
+} from './miskre'
+
+import * as rpc from './rpc'
 
 const router = express.Router()
 
@@ -129,87 +139,9 @@ router.get('/addresses/:id', async (req, res) => {
     })
 })
 
-function getReceivedTransactions (a, t) {
-  const res = newAssetTable([])
-  if (typeof t.vout !== 'undefined') {
-    _.each(t.vout, (o, i) => {
-      if (o.address === a) {
-        if (_.contains(ASSETS, o.asset)) {
-          res[ASSET_HASHES[o.asset]].push({
-            value: o.value,
-            index: o.n,
-            txid: t.txid
-          })
-        }
-      }
-    })
-  }
-  return res
-}
-
-function getSentTransactions (a, t) {
-  const res = newAssetTable([])
-  if (typeof t.vin_verbose !== 'undefined') {
-    _.each(t.vin_verbose, (o, i) => {
-      if (o.address === a) {
-        if (_.contains(ASSETS, o.asset)) {
-          res[ASSET_HASHES[o.asset]].push({
-            value: o.value,
-            index: o.n,
-            txid: o.txid,
-            sending_id: t.txid
-          })
-        }
-      }
-    })
-  }
-  return res
-}
-
-function zipTransactions (txs) {
-  const res = newAssetTable()
-  _.each(txs, tx => {
-    _.each(res, (i, asset) => {
-      _.each(tx[asset], t => {
-        res[asset][`${t.txid}_${t.index}`] = t
-      })
-    })
-  })
-  return res
-}
-
-function getUnspent (sent, received) {
-  const res = newAssetTable()
-  _.each(res, (i, asset) => {
-    _.each(received[asset], (o, txid) => {
-      if (!_.some(sent[asset], (v, k) => k === txid)) {
-        res[asset][txid] = o
-      }
-    })
-    res[asset] = _.flatten(_.values(res[asset]))
-  })
-  return res
-}
-
-function getTotals (unspent) {
-  const res = newAssetTable()
-  _.each(res, (i, asset) => {
-    res[asset] = _.reduce(unspent[asset], (sum, j) => {
-      return BigNumber(sum).plus(j.value)
-    }, 0)
-  })
-  return res
-}
-
 router.get('/addresses/:id/balance', (req, res) => {
   const address = req.params.id
-  Transaction
-    .find({
-      $or: [
-        {vout: {$elemMatch: {address}}},
-        {vin_verbose: {$elemMatch: {address}}}
-      ]
-    })
+  findAddressTransactions(address)
     .exec((e, transactions) => {
       if (e) {
         console.log(e)
@@ -231,7 +163,7 @@ router.get('/addresses/:id/balance', (req, res) => {
         return r
       }, {})
       res.json({
-        net: 'testnet.miskre.org',
+        net: NET,
         address,
         // sent,
         // received,
@@ -244,13 +176,7 @@ router.get('/addresses/:id/balance', (req, res) => {
 
 router.get('/addresses/:id/history', (req, res) => {
   const address = req.params.id
-  Transaction
-    .find({
-      $or: [
-        {vout: {$elemMatch: {address}}},
-        {vin_verbose: {$elemMatch: {address}}}
-      ]
-    })
+  findAddressTransactions(address)
     .sort({
       blocktime: -1
     })
@@ -262,6 +188,74 @@ router.get('/addresses/:id/history', (req, res) => {
       }
       res.json(transactions)
     })
+})
+
+router.get('/addresses/:id/claims', (req, res) => {
+  const address = req.params.id
+  async.parallel({
+    transactions (cb) {
+      findAddressTransactions(address).exec(cb)
+    },
+    claimed (cb) {
+      findAddressClaimTransactions(address).exec(cb)
+    },
+    height (cb) {
+      rpc.getBlockCount()
+        .then(result => {
+          cb(null, result)
+        })
+        .catch(e => cb(e, 0))
+    }
+  }, (e, data) => {
+    if (e) {
+      console.log(e)
+      return res.status(500).json(e)
+    }
+    try {
+      // reformat transactions array to object
+      const transactions = _.reduce(data.transactions, (o, tx) => {
+        o[tx.txid] = tx
+        return o
+      }, {})
+      // sent MIS info
+      const sent = zipTransactions(_.map(data.transactions, t => {
+        return getSentTransactions(address, t)
+      }))
+      const received = zipTransactions(_.map(data.transactions, t => {
+        return getReceivedTransactions(address, t)
+      }))
+      const unspent = getUnspent(sent, received)
+      // past claimed tx
+      const claimed = _.reduce(data.claimed, (o, tx) => {
+        _.each(tx.claims, c => {
+          o[`${c.txid}_${c.vout}`] = tx
+        })
+        return o
+      }, {})
+      let validClaims = _.filter(sent.MIS, (tx, txid) => {
+        return _.isUndefined(claimed[txid])
+      })
+      // _.each(data.claimTransactions, tx => {
+      //   claimedTxids[`${tx.txid}_${tx.vout}`] = tx
+      // })
+      const blockDiffs = computeClaims(validClaims, transactions)
+      const unspentDiffs = computeClaims(unspent.MIS, transactions, data.height)
+      const unspentClaimTotal = calculateBonus(unspentDiffs)
+      res.json({
+        net: NET,
+        address,
+        // sent,
+        // received,
+        // unspent,
+        // claimed,
+        claims: blockDiffs,
+        available: calculateBonus(blockDiffs),
+        unavailable: calculateBonus(unspentDiffs)
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  })
 })
 
 export default router

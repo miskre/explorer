@@ -5,7 +5,8 @@ import api, {txid2hex} from '@/common/api'
 
 const state = {
   account: null,
-  balance: null
+  balance: null,
+  claims: null
 }
 
 const getters = {
@@ -20,6 +21,10 @@ const getters = {
 
   balance (state) {
     return state.balance
+  },
+
+  claims (state) {
+    return state.claims
   },
 
   paperWallet (state) {
@@ -70,8 +75,25 @@ const actions = {
       .catch(e => console.log(e))
   },
 
+  updateClaims ({state, commit}) {
+    if (state.account === null) return
+    commit(types.CLAIMS_UPDATED, null)
+    api.getAddressClaims(state.account.address)
+      .then(res => {
+        if (res.data.claims) {
+          res.data.claims = _.map(res.data.claims, i => {
+            if (i.txid) i.txid = txid2hex(i.txid)
+            return i
+          })
+        }
+        commit(types.CLAIMS_UPDATED, res.data)
+      })
+      .catch(e => console.log(e))
+  },
+
   updateState ({state, dispatch, commit}) {
     dispatch('updateBalance')
+    dispatch('updateClaims')
   },
 
   loggedOut ({commit}) {
@@ -92,6 +114,10 @@ const mutations = {
 
   [types.BALANCE_UPDATED] (state, balance) {
     Vue.set(state, 'balance', balance)
+  },
+
+  [types.CLAIMS_UPDATED] (state, claims) {
+    Vue.set(state, 'claims', claims)
   }
 
 }

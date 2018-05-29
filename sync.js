@@ -28,10 +28,11 @@ async function lookupTransaction(_id) {
   })
 }
 
-async function syncTransaction(hash) {
+async function syncTransaction(hash, index) {
   return new Promise(async (resolve, reject) => {
     try {
       const transaction = await rpc.getRawTransaction([hash, 1])
+      transaction.block_index = index
       // contract transaction
       if (typeof transaction.vin !== 'undefined') {
         const verbose = []
@@ -67,7 +68,6 @@ async function syncTransaction(hash) {
         else resolve(res)
       })
     } catch (e) {
-      console.log(e)
       reject(e)
     }
   })
@@ -79,7 +79,7 @@ async function syncBlock(index) {
       const block = await rpc.getBlock([index, 1])
       for (let i in block.tx) {
         console.log('transaction.sync: ' + block.tx[i].txid)
-        await syncTransaction(block.tx[i].txid)
+        await syncTransaction(block.tx[i].txid, block.index)
       }
       Block.update({ _id: block.hash }, { _id: block.hash, ...block }, { upsert: true }, (e, res) => {
         if (e) reject(e)
@@ -94,15 +94,19 @@ async function syncBlock(index) {
 async function syncChain() {
   if (isSyncing) return
   isSyncing = true
-  const currentHeight = await rpc.getBlockCount()
-  const lastBlockHeight = await getState('lastBlockHeight', 0)
-  console.log('block.status: ' + lastBlockHeight + '/' + currentHeight)
-  if (currentHeight > lastBlockHeight) {
-    for (let i = lastBlockHeight; i < currentHeight; i ++) {
-      console.log('block.sync: ' + (i + 1) + '/' + currentHeight)
-      await syncBlock(i)
-      await setState('lastBlockHeight', i)
+  try {
+    const currentHeight = await rpc.getBlockCount()
+    const lastBlockHeight = await getState('lastBlockHeight', 0)
+    console.log('block.status: ' + lastBlockHeight + '/' + currentHeight)
+    if (currentHeight > lastBlockHeight) {
+      for (let i = lastBlockHeight; i < currentHeight; i ++) {
+        console.log('block.sync: ' + (i + 1) + '/' + currentHeight)
+        await syncBlock(i)
+        await setState('lastBlockHeight', i)
+      }
     }
+  } catch (e) {
+    console.error(e)
   }
   isSyncing = false
 }
@@ -112,7 +116,7 @@ async function firstBlock() {
   console.log(JSON.stringify(block, null, 2))
 }
 
-syncInterval = setInterval(syncChain, 5000)
 // firstBlock()
+syncInterval = setInterval(syncChain, 5000)
 
 export default router

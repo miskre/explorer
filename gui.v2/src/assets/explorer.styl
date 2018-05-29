@@ -42,6 +42,10 @@
     animation-iteration-count infinite
     animation-direction both
 
+#explorer
+  pre
+    overflow-x scroll
+
 .blocks
 .transactions
   margin 0
@@ -68,12 +72,18 @@ ul.balances
   > li
     display block
     background-color lighten(black, 8)
-    padding 10px 15px
+    padding 10px 15px 5px
     &:not(:last-child)
       margin-bottom 10px
     .name
       font-size 12px
       color base
+    .status
+      margin-top 5px
+      color snow
+      font-size 12px
+      .asset
+        font-size 14px
 
 .asset
   display inline-block
