@@ -56,6 +56,10 @@ export default {
     ...mapActions({
       updateState: 'users/updateState'
     })
+  },
+
+  mounted () {
+    this.updateState()
   }
 }
 </script>
