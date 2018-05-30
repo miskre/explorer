@@ -34,15 +34,18 @@ export default {
     },
     integer () {
       return this.number
-        .integerValue()
+        .integerValue(BigNumber.ROUND_DOWN)
         .toString()
     },
     fractional () {
       if (this.asset.fractionalSize <= 0) return null
+      if (!this.number) return 0
+      console.log(this.number.toString())
+      console.log(this.number.minus(this.integer).toString())
       return this.number
         .minus(this.integer)
         .multipliedBy(Math.pow(10, this.asset.fractionalSize))
-        .decimalPlaces(0)
+        .integerValue(BigNumber.ROUND_DOWN)
         .toString()
     }
   },
