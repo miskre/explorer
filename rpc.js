@@ -42,6 +42,10 @@ export function getAccountState(params = []) {
   return call('getaccountstate', params)
 }
 
+export function getAssetState(params = []) {
+  return call('getassetstate', params)
+}
+
 export function getBestBlock(params = []) {
   return call('getbestblock', params)
 }

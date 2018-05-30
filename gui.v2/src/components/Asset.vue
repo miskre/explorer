@@ -40,7 +40,7 @@ export default {
     fractional () {
       if (this.asset.fractionalSize <= 0) return null
       return this.number
-        .minus(this.number.toFixed(0, BigNumber.ROUND_DOWN))
+        .minus(this.integer)
         .multipliedBy(Math.pow(10, this.asset.fractionalSize))
         .decimalPlaces(0)
         .toString()

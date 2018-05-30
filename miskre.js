@@ -1,4 +1,5 @@
 import _ from 'underscore'
+import async from 'async'
 import BigNumber from 'bignumber.js'
 
 import {
@@ -159,9 +160,34 @@ export function getTotals (unspent) {
   return res
 }
 
+export function filterClaimedForOtherAddress (claims) {
+  return new Promise((resolve, reject) => {
+    const result = []
+    async.eachOf(claims, (claim, key, next) => {
+      Transaction
+        .findOne({
+          type: 'ClaimTransaction',
+          claims_keys_v1: {
+            $elemMatch: {
+              key
+            }
+          }
+        })
+        .exec((e, tx) => {
+          if (e) return next(e)
+          if (!tx) result.push(claim)
+          return next(null)
+        })
+    }, e => {
+      if (e) return reject(e)
+      return resolve(result)
+    })
+  })
+}
+
 export function computeClaims (claims, transactions, endBlock = false) {
   const diffs = []
-  _.each(claims, tx => {
+  _.each(claims, async tx => {
     const res = {
       txid: tx.txid,
       start: transactions[tx.txid].block_index,

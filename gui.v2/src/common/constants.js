@@ -15,7 +15,7 @@ export const assetHashes = {
     total: 20000000000,
     fractionalSize: 6,
     format: '0,0.000000',
-    step: 0.1
+    step: 0.000001
   }
 }
 

@@ -21,7 +21,6 @@
                     .caption Wallet Manage
                     .content
                       info
-                      claim
                       ul.links
                         li
                           a.link(href="#" @click.stop.prevent="openWalletHistory(account.address)") Transactions History
@@ -67,7 +66,6 @@ import Vue from 'vue'
 import {mapActions, mapGetters} from 'vuex'
 import {wallet} from '@cityofzion/neon-js'
 import WalletInfo from '@/components/WalletInfo'
-import WalletClaim from '@/components/WalletClaim'
 import WalletCreate from '@/components/WalletCreate'
 import WalletTransfer from '@/components/WalletTransfer'
 import WalletGenerateKeystore from '@/components/WalletGenerateKeystore'
@@ -83,7 +81,6 @@ export default {
 
   components: {
     info: WalletInfo,
-    claim: WalletClaim,
     create: WalletCreate,
     transfer: WalletTransfer,
     generateKeystore: WalletGenerateKeystore

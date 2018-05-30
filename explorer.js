@@ -21,12 +21,13 @@ import {
   calculateBonus,
   findAddressTransactions,
   findAddressClaimTransactions,
+  filterClaimedForOtherAddress,
   getReceivedTransactions,
   getSentTransactions,
   zipTransactions,
   getUnspent,
   getTotals,
-  computeClaims
+  computeClaims,
 } from './miskre'
 
 import * as rpc from './rpc'
@@ -67,6 +68,22 @@ router.get('/height', async (req, res) => {
   res.json(count)
 })
 
+router.get('/assets', async (req, res) => {
+  async.mapValues(ASSETS, (asset, name, cb) => {
+    rpc.getAssetState([asset])
+      .then(result => {
+        cb(null, result)
+      })
+      .catch(cb)
+  }, (e, result) => {
+    if (e) {
+      console.log(e)
+      return res.send(501).json(e)
+    }
+    res.json(result)
+  })
+})
+
 router.post('/transactions/send', (req, res) => {
   const tx = req.body.tx
   console.log('tx', tx)
@@ -76,6 +93,7 @@ router.post('/transactions/send', (req, res) => {
       res.json(result)
     })
     .catch(e => {
+      console.error(e)
       res.status(403).json(e)
     })
 })
@@ -127,15 +145,13 @@ router.get('/transactions/:id', async (req, res) => {
 })
 
 router.get('/addresses/:id', async (req, res) => {
-  Address
-    .findOne({_id: req.params.id})
-    .exec((e, address) => {
-      if (e) {
-        console.log(e)
-        res.status(500).json(e)
-      }
-      if (address) res.render(address)
-      else res.status(404).json(404)
+  const address = req.params.id
+  rpc.getAccountState([address])
+    .then(result => {
+      res.json(result)
+    })
+    .catch(e => {
+      res.status(400).json(e)
     })
 })
 
@@ -206,7 +222,7 @@ router.get('/addresses/:id/claims', (req, res) => {
         })
         .catch(e => cb(e, 0))
     }
-  }, (e, data) => {
+  }, async (e, data) => {
     if (e) {
       console.log(e)
       return res.status(500).json(e)
@@ -232,12 +248,11 @@ router.get('/addresses/:id/claims', (req, res) => {
         })
         return o
       }, {})
-      let validClaims = _.filter(sent.MIS, (tx, txid) => {
-        return _.isUndefined(claimed[txid])
+      let validClaims = {}
+      _.each(sent.MIS, (tx, txid) => {
+        if (_.isUndefined(claimed[txid])) validClaims[txid] = tx
       })
-      // _.each(data.claimTransactions, tx => {
-      //   claimedTxids[`${tx.txid}_${tx.vout}`] = tx
-      // })
+      validClaims = await filterClaimedForOtherAddress(validClaims)
       const blockDiffs = computeClaims(validClaims, transactions)
       const unspentDiffs = computeClaims(unspent.MIS, transactions, data.height)
       const unspentClaimTotal = calculateBonus(unspentDiffs)
