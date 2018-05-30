@@ -4,7 +4,7 @@
       #menu(v-if="menuDisplayed")
         ul.navigations(@click="toggleMenu")
           li
-            a(href="https://home.miskre.org") home
+            a(target="_blank" href="https://home.miskre.org") home
           li
             router-link(:to="{name: 'Explorer'}") explorer
           li
