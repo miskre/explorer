@@ -1,4 +1,5 @@
 import express from 'express'
+import history from 'connect-history-api-fallback'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import explorer from './explorer'
@@ -9,6 +10,9 @@ const app = express()
 
 app.set('view engine', 'pug')
 app.set('views', './views')
+app.use(history({
+  index: '/index.html'
+}))
 app.use('/assets', express.static('./assets'))
 app.use('/', express.static('./gui.v2/dist'))
 app.use(bodyParser.json())
