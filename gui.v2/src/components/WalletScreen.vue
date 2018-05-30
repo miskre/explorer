@@ -1,14 +1,14 @@
 <template lang="pug">
   #slides
     section#explorer.full-height
-      .bg(style="background-image: url(/static/magazine.jpeg)")
+      .bg.static(style="background-image: url(/static/magazine.jpeg)")
       .fg
-        .title(data-aos="fade-left")
-          h1 wallet
-
-        .tabs(data-aos="fade-down")
-          a(:class="{a: tab === 'import'}" href="#" @click.prevent="tab = 'import'" v-text="isLogged ? 'Your Wallet' : 'Import'")
-          a(:class="{a: tab === 'create'}" href="#" @click.prevent="tab = 'create'") Create
+        .safe
+          .title(data-aos="fade-left")
+            h1 wallet
+          .tabs(data-aos="fade-down")
+            a(:class="{a: tab === 'import'}" href="#" @click.prevent="tab = 'import'" v-text="isLogged ? 'Your Wallet' : 'Import'")
+            a(:class="{a: tab === 'create'}" href="#" @click.prevent="tab = 'create'") Create
 
         .roll(data-aos="fade-up")
 

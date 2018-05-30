@@ -1,10 +1,11 @@
 <template lang="pug">
   #slides
     section#explorer.full-height
-      .bg(style="background-image: url(/static/world.jpeg)")
+      .bg.static(style="background-image: url(/static/world.jpeg)")
       .fg
-        .title(data-aos="fade-left")
-          h1 explorer
+        .safe
+          .title(data-aos="fade-left")
+            h1 explorer
         .roll(data-aos="fade-up")
           .rw
             .cl.md-6

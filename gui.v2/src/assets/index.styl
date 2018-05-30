@@ -264,9 +264,15 @@ select
     background-color #050505
     padding 10px 15px
     color white
+    @media small-only
+      padding-left 20px
+      padding-right @padding-left
   > .content
     padding 15px
     background-color #0f0f0f
+    @media small-only
+      padding-left 20px
+      padding-right @padding-left
 
 #menu
   position fixed
@@ -300,7 +306,7 @@ select
         color white
 
 #top-bar
-  position fixed
+  position absolute
   top 0
   left 0
   right 0
@@ -401,7 +407,11 @@ select
       position relative
       z-index 1
       width 100%
-      padding 120px 20px 40px 20px
+      padding 120px 0 40px 0
+      .safe
+        @media small-only
+          padding-left 20px
+          padding-right 20px
       &.static
         background-attachment fixed
       &.full-width

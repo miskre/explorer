@@ -1,3 +1,11 @@
+clearfix()
+  &:before,
+  &:after
+    content ''
+    display table
+  &:after
+    clear both
+
 .vue-dialog
   word-break break-word
 
@@ -42,9 +50,21 @@
     animation-iteration-count infinite
     animation-direction both
 
-#explorer
+pre.debug
+  overflow-x scroll
+
+.script
+  margin-bottom 15px
+  > span
+    font-size 12px
+    text-transform uppercase
+    font-weight bold
   pre
-    overflow-x scroll
+    margin 5px 0 0 0
+    background-color black
+    overflow hidden
+    white-space normal
+    word-break break-word
 
 .blocks
 .transactions
@@ -57,6 +77,10 @@
       border-bottom 1px solid #1a1a1a
   .time
     color monsoon
+  .type
+    color steel
+    font-size 12px
+    margin-bottom 3px
   .txid
   .hash
     display block
@@ -64,6 +88,38 @@
     text-overflow ellipsis
     white-space nowrap
     overflow hidden
+
+dl.info
+  clearfix()
+  dt
+    width 30%
+    float left
+    clear left
+    font-size 12px
+    text-transform uppercase
+  dd
+    width 70%
+    float left
+    color white
+
+.navigator
+  font-size 0
+  margin-bottom 20px
+  .previous
+  .next
+    display inline-block
+    width 42px
+    height @width
+    color white
+    background-color black
+    text-align center
+    line-height @height
+    transition background-color .5s ease-in-out
+    font-size 12px
+    &:hover
+      background-color lighten(black, 5)
+    &:not(:last-child)
+      margin-right 1px
 
 ul.balances
   margin 0

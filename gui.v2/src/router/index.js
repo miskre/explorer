@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import ExplorerScreen from '@/components/ExplorerScreen'
 import BlockScreen from '@/components/BlockScreen'
 import TransactionScreen from '@/components/TransactionScreen'
+import AddressScreen from '@/components/AddressScreen'
 import WalletScreen from '@/components/WalletScreen'
 
 Vue.use(Router)
@@ -26,6 +27,11 @@ export default new Router({
       path: '/transaction/:_id',
       name: 'Transaction',
       component: TransactionScreen
+    },
+    {
+      path: '/addresses/:_id',
+      name: 'Address',
+      component: AddressScreen
     },
     {
       path: '/wallet',

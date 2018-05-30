@@ -1,19 +1,70 @@
 <template lang="pug">
   #slides
     section#explorer.full-height
+      .bg.static(style="background-image: url(/static/world.jpeg)")
       .fg
-        .title(data-aos="fade-left")
-          h1 transaction
+        .safe
+          .title(data-aos="fade-left")
+            h1 transaction
+          transition(name="fade" mode="out-in")
+            loading.tl(v-if="isLoading" text="Synching Transaction")
+            a.bt.a(v-else="isLoading" href="#" @click.prevent="fetch") Refresh
+          .ab.w(v-if="!isConfirmed") This transaction have no confirmations yet. It will be processed by the blockchain soon.
+
         transition(name="fade" mode="out-in")
-          loading.tl(v-if="isLoading" text="Synching Transaction")
-          a.bt.a(v-else="isLoading" href="#" @click.prevent="fetch") Refresh
-        .ab.w(v-if="!isConfirmed") This transaction have no confirmations yet. It will be processed by the blockchain soon.
-        debug(v-if="transaction" data-aos="fade-up" :value="transaction")
+          div(v-if="transaction")
+            ul.bg.md-2.lg-3
+              li
+                .card
+                  .caption General Information
+                  .content
+                    .script
+                      pre(v-text="transaction.txid")
+                    dl.info
+                      dt Size
+                      dd(v-text="transaction.size")
+                      dt Type
+                      dd(v-text="transaction.type")
+                      dt Version
+                      dd(v-text="transaction.version")
+                      dt Sysfee
+                      dd(v-text="transaction.sys_fee")
+                      dt Netfee
+                      dd(v-text="transaction.net_fee")
+                      dt Confirms
+                      dd(v-text="transaction.confirmations")
+              li
+                .card
+                  .caption Scripts
+                  .content
+                    .script
+                      span Attributes
+                      pre
+                        code(v-text="transaction.attributes")
+                    .script
+                      span Vin
+                      pre
+                        code(v-text="transaction.vin")
+                    .script.mb-0
+                      span Vout
+                      pre
+                        code(v-text="transaction.vout")
+              li
+                .card
+                  .caption Block Info
+                  .content
+                    ul.blocks
+                      li
+                        router-link.name.hash(:to="{name: 'Block', params: {_id: transaction.blockhash}}" v-text="__h(transaction.blockhash)")
+                        timeago.time(:since="transaction.blocktime * 1000")
+
+        // debug(v-if="transaction" data-aos="fade-up" :value="transaction")
 </template>
 
 <script>
 import Vue from 'vue'
 import api from '@/common/api'
+import {__h} from '@/common/helpers'
 import Loading from '@/components/Loading'
 
 export default {
@@ -47,6 +98,7 @@ export default {
   },
 
   methods: {
+    __h,
     fetch () {
       this.transaction = null
       this.error = null
