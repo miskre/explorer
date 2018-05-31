@@ -6,7 +6,7 @@
           .title(data-aos="fade-left")
             h1 address
           transition(name="fade" mode="out-in")
-            loading.tl(v-if="isLoading" text="Synching Address")
+            loading.tl(v-if="isLoading" text="Syncing Address")
             a.bt.a(v-else="isLoading" href="#" @click.prevent="fetch") Refresh
         debug(v-if="address" data-aos="fade-up" :value="address")
 </template>

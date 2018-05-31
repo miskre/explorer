@@ -1,79 +1,59 @@
 <template lang="pug">
-  #slides
-    section#explorer.full-height
-      .bg.static(style="background-image: url(/static/magazine.jpeg)")
-      .fg
-        .safe
-          .title(data-aos="fade-left")
-            h1 wallet
-          .tabs(data-aos="fade-down")
-            a(:class="{a: tab === 'import'}" href="#" @click.prevent="tab = 'import'" v-text="isLogged ? 'Your Wallet' : 'Import'")
-            a(:class="{a: tab === 'create'}" href="#" @click.prevent="tab = 'create'") Create
+  .roll(data-aos="fade-up")
 
-        .roll(data-aos="fade-up")
-
-          transition(name="fade" mode="out-in")
-
-            ul.bg.md-2.lg-3(v-if="tab === 'import'" key="import")
-              template(v-if="isLogged")
-                li
-                  .card
-                    .caption Wallet Manage
-                    .content
-                      info
-                      ul.links
-                        li
-                          a.link(href="#" @click.stop.prevent="openWalletHistory(account.address)") Transactions History
-                        li
-                          a.link(href="#" @click.stop.prevent="openPaperWallet(paperWallet)") Paper Wallet
-                        li
-                          a.link(href="#" @click.stop.prevent="logout") End Session
-                li
-                  .card
-                    .caption Transfer
-                    .content
-                      transfer
-                li
-                  .card
-                    .caption Generate New Keystore
-                    .content
-                      generate-keystore(:wallet="account")
-              template(v-else)
-                li
-                  .card
-                    .caption Import Your Wallet
-                    .content
-                      form#login(@submit.stop.prevent="login")
-                        label Keystore
-                          .file
-                            input(type="file" @change="openKeystore")
-                        .error(v-if="error" v-text="error")
-                        div(v-if="passwordNeeded")
-                          label Password &mdash; Required
-                            input(type="password" v-model="password" required)
-                          button.bt.a.mb-0(type="submit") Import
-
-            ul.bg.md-2.lg-3(v-else="tab === 'create'" key="create")
-              li
-                .card
-                  .caption Create New Wallet
-                  .content
-                    create
+    transition(name="fade" mode="out-in")
+      ul.bg.md-2.lg-3
+        template(v-if="isLogged")
+          li
+            .card
+              .caption Wallet Manage
+              .content
+                info
+                ul.links
+                  li
+                    a.link(href="#" @click.stop.prevent="openWalletHistory(account.address)") Transactions History
+                  li
+                    a.link(href="#" @click.stop.prevent="openPaperWallet(paperWallet)") Paper Wallet
+                  li
+                    a.link(href="#" @click.stop.prevent="logout") End Session
+          li
+            .card
+              .caption Transfer
+              .content
+                transfer
+          li
+            .card
+              .caption Generate New Keystore
+              .content
+                generate-keystore(:wallet="account")
+        template(v-else)
+          li
+            .card
+              .caption Import Your Wallet
+              .content
+                form#login(@submit.stop.prevent="login")
+                  label Keystore
+                    .file
+                      input(type="file" @change="openKeystore")
+                  .error(v-if="error" v-text="error")
+                  div(v-if="passwordNeeded")
+                    label Password &mdash; Required
+                      input(type="password" v-model="password" required)
+                    button.bt.a.mb-0(type="submit") Import
 </template>
 
 <script>
 import Vue from 'vue'
 import {mapActions, mapGetters} from 'vuex'
 import {wallet} from '@cityofzion/neon-js'
-import WalletInfo from '@/components/WalletInfo'
-import WalletCreate from '@/components/WalletCreate'
-import WalletTransfer from '@/components/WalletTransfer'
-import WalletGenerateKeystore from '@/components/WalletGenerateKeystore'
+import WalletInfo from '@/components/WalletScreen/Info'
+import WalletTransfer from '@/components/WalletScreen/Transfer'
+import WalletGenerateKeystore from '@/components/WalletScreen/GenerateKeystore'
 import PaperWalletModal from '@/components/PaperWalletModal'
 import WalletHistoryModal from '@/components/WalletHistoryModal'
 
 export default {
-  name: 'WalletScreen',
+  name: 'WalletImportFragment',
 
   metaInfo: {
     title: 'wallet'
@@ -81,7 +61,6 @@ export default {
 
   components: {
     info: WalletInfo,
-    create: WalletCreate,
     transfer: WalletTransfer,
     generateKeystore: WalletGenerateKeystore
   },

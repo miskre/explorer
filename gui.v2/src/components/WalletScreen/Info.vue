@@ -6,7 +6,7 @@
         icon(name="sync")
     .state
       transition(name="fade" mode="out-in")
-        loading(v-if="balance === null" text="Synching Balances")
+        loading(v-if="balance === null" text="Syncing Balances")
         ul.balances.mv-15(v-else)
           li(v-for="b, k in balance" v-if="['net', 'address'].indexOf(k) === -1")
             .name(v-text="assetBySymbol(k).name")
@@ -137,7 +137,8 @@ export default {
         console.log('tx', serializedTx)
         api.sendRawTransaction(serializedTx)
           .then(res => {
-            this.done(txid)
+            if (res.data) this.done(txid)
+            else this.error()
           })
           .catch(this.error)
           .then(req => {

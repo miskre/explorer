@@ -5,7 +5,11 @@ import ExplorerScreen from '@/components/ExplorerScreen'
 import BlockScreen from '@/components/BlockScreen'
 import TransactionScreen from '@/components/TransactionScreen'
 import AddressScreen from '@/components/AddressScreen'
+
 import WalletScreen from '@/components/WalletScreen'
+import WalletImportFragment from '@/components/WalletScreen/ImportFragment'
+import WalletCreateFragment from '@/components/WalletScreen/CreateFragment'
+import WalletFaqsFragment from '@/components/WalletScreen/FaqsFragment'
 
 Vue.use(Router)
 Vue.use(VueMeta)
@@ -34,9 +38,32 @@ export default new Router({
       component: AddressScreen
     },
     {
-      path: '/wallet',
-      name: 'Wallet',
-      component: WalletScreen
+      path: '/wallets',
+      component: WalletScreen,
+      children: [
+        {
+          path: 'import',
+          name: 'WalletImport',
+          component: WalletImportFragment
+        },
+        {
+          path: 'create',
+          name: 'WalletCreate',
+          component: WalletCreateFragment
+        },
+        {
+          path: 'faqs',
+          name: 'WalletFaqs',
+          component: WalletFaqsFragment
+        },
+        {
+          path: '',
+          name: 'Wallet',
+          redirect: {
+            name: 'WalletImport'
+          }
+        }
+      ]
     }
   ]
 })

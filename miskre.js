@@ -3,7 +3,6 @@ import async from 'async'
 import BigNumber from 'bignumber.js'
 
 import {
-  State,
   Address,
   Block,
   Transaction,
@@ -24,7 +23,7 @@ export const ASSET_HASHES = {
   '0x602c79718b16e442de58778e148d0b1084e3b2dffd5de6b7b16cee7969282de7': 'KRE'
 }
 
-export const GENERATION_AMOUNT = [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+export const GENERATION_AMOUNT = _.map([8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], a => a * 200)
 export const GENERATION_LENGTH = 22
 export const DECREMENT_INTERVAL = 2000000
 

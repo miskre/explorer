@@ -27,9 +27,9 @@ function call(method, params = []) {
       id: Date.now()
     })
     .then(res => {
-      if (res.data.error) return reject(res.data.error)
-      if (res.data.code && res.data.code < 0) return reject(res.data)
-      if (res.data.result) return resolve(res.data.result)
+      if (typeof res.data.error !== 'undefined') return reject(res.data.error)
+      if (typeof res.data.code !== 'undefined' && res.data.code < 0) return reject(res.data)
+      if (typeof res.data.result !== 'undefined') return resolve(res.data.result)
       reject(new Error('No result returned.'))
     })
     .catch(e => {

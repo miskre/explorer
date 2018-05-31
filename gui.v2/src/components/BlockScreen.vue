@@ -7,7 +7,7 @@
           .title(data-aos="fade-left")
             h1 block
           transition(name="fade" mode="out-in")
-            loading.tl(v-if="isLoading" text="Synching Block")
+            loading.tl(v-if="isLoading" text="Syncing Block")
             .navigator(v-else)
               a.bt.a(href="#" @click.prevent="fetch") Refresh
               router-link.previous(v-if="previous" :to="{name: 'Block', params: {_id: previous}}" title="previous") ←

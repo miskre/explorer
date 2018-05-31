@@ -7,7 +7,7 @@
           .title(data-aos="fade-left")
             h1 transaction
           transition(name="fade" mode="out-in")
-            loading.tl(v-if="isLoading" text="Synching Transaction")
+            loading.tl(v-if="isLoading" text="Syncing Transaction")
             a.bt.a(v-else="isLoading" href="#" @click.prevent="fetch") Refresh
           .ab.w(v-if="!isConfirmed") This transaction have no confirmations yet. It will be processed by the blockchain soon.
 
@@ -49,7 +49,7 @@
                       span Vout
                       pre
                         code(v-text="transaction.vout")
-              li
+              li(v-if="transaction.blockhash")
                 .card
                   .caption Block Info
                   .content

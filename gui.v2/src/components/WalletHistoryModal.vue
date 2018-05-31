@@ -4,7 +4,7 @@
       a.x(href="#" @click.stop.prevent="$modal.hide('wallet-history')") &times;
     .content.p-20
       transition(name="fade" mode="out-in")
-        loading(v-if="!transactions" text="Synching Trnsactions")
+        loading(v-if="!transactions" text="Syncing Trnsactions")
         transition-group.transactions(v-else name="fade" tag="ul")
           li(v-for="t, k in transactions" :key="k")
             .stamp.transaction

@@ -13,7 +13,7 @@
                 .caption Latest Blocks
                 .content
                   transition(name="fade" mode="out-in")
-                    loading(v-if="!blocks" text="Synching Blocks")
+                    loading(v-if="!blocks" text="Syncing Blocks")
                     transition-group.blocks(v-else name="fade" tag="ul")
                       li(v-for="b, k in blocks" :key="k")
                         .stamp.block
@@ -24,7 +24,7 @@
                 .caption Latest Transactions
                 .content
                   transition(name="fade" mode="out-in")
-                    loading(v-if="!blocks" text="Synching Trnsactions")
+                    loading(v-if="!blocks" text="Syncing Trnsactions")
                     transition-group.transactions(v-else name="fade" tag="ul")
                       li(v-for="t, k in transactions" :key="k")
                         .stamp.transaction

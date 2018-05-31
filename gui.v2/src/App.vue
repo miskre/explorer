@@ -1,8 +1,8 @@
 <template lang="pug">
   #app
     transition(name="fade")
-      #menu(v-if="menuDisplayed")
-        ul.navigations(@click="toggleMenu")
+      #menu(v-if="menuDisplayed" @click="toggleMenu")
+        ul.navigations
           li
             a(target="_blank" href="https://home.miskre.org") home
           li
