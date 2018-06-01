@@ -9,7 +9,7 @@ import {
   getState,
   setState,
   deleteState
-} from './chains'
+} from './storage'
 
 import * as rpc from './rpc'
 

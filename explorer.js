@@ -1,4 +1,9 @@
-import _ from 'underscore'
+import {
+  each,
+  map,
+  reduce,
+  isUndefined
+} from 'underscore'
 import express from 'express'
 import async from 'async'
 import BigNumber from 'bignumber.js'
@@ -11,12 +16,15 @@ import {
   getState,
   setState,
   deleteState
-} from './chains'
+} from './storage'
 
 import {
   NET,
   ASSETS,
   ASSET_HASHES,
+} from './miskre'
+
+import {
   newAssetTable,
   calculateBonus,
   findAddressTransactions,
@@ -28,7 +36,7 @@ import {
   getUnspent,
   getTotals,
   computeClaims,
-} from './miskre'
+} from './blockchain'
 
 import * as rpc from './rpc'
 
@@ -70,7 +78,7 @@ router.get('/height', async (req, res) => {
 
 router.get('/assets', async (req, res) => {
   async.mapValues(ASSETS, (asset, name, cb) => {
-    rpc.getAssetState([asset])
+    rpc.getAssetState([asset.hash])
       .then(result => {
         cb(null, result)
       })
@@ -163,20 +171,20 @@ router.get('/addresses/:id/balance', (req, res) => {
         console.log(e)
         return res.status(500).json(e)
       }
-      const sent = zipTransactions(_.map(transactions, t => {
+      const sent = zipTransactions(map(transactions, t => {
         return getSentTransactions(address, t)
       }))
-      const received = zipTransactions(_.map(transactions, t => {
+      const received = zipTransactions(map(transactions, t => {
         return getReceivedTransactions(address, t)
       }))
       const unspent = getUnspent(sent, received)
       const totals = getTotals(unspent)
-      const state = _.reduce(ASSET_HASHES, (r, a) => {
-        r[a] = {
-          balance: totals[a],
-          unspent: unspent[a]
+      const state = reduce(ASSET_HASHES, (result, asset) => {
+        result[asset.symbol] = {
+          balance: totals[asset.symbol],
+          unspent: unspent[asset.symbol]
         }
-        return r
+        return result
       }, {})
       res.json({
         net: NET,
@@ -229,33 +237,32 @@ router.get('/addresses/:id/claims', (req, res) => {
     }
     try {
       // reformat transactions array to object
-      const transactions = _.reduce(data.transactions, (o, tx) => {
+      const transactions = reduce(data.transactions, (o, tx) => {
         o[tx.txid] = tx
         return o
       }, {})
       // sent MIS info
-      const sent = zipTransactions(_.map(data.transactions, t => {
+      const sent = zipTransactions(map(data.transactions, t => {
         return getSentTransactions(address, t)
       }))
-      const received = zipTransactions(_.map(data.transactions, t => {
+      const received = zipTransactions(map(data.transactions, t => {
         return getReceivedTransactions(address, t)
       }))
       const unspent = getUnspent(sent, received)
       // past claimed tx
-      const claimed = _.reduce(data.claimed, (o, tx) => {
-        _.each(tx.claims, c => {
+      const claimed = reduce(data.claimed, (o, tx) => {
+        each(tx.claims, c => {
           o[`${c.txid}_${c.vout}`] = tx
         })
         return o
       }, {})
       let validClaims = {}
-      _.each(sent.MIS, (tx, txid) => {
-        if (_.isUndefined(claimed[txid])) validClaims[txid] = tx
+      each(sent.MIS, (tx, txid) => {
+        if (isUndefined(claimed[txid])) validClaims[txid] = tx
       })
       validClaims = await filterClaimedForOtherAddress(validClaims)
       const blockDiffs = computeClaims(validClaims, transactions)
       const unspentDiffs = computeClaims(unspent.MIS, transactions, data.height)
-      const unspentClaimTotal = calculateBonus(unspentDiffs)
       res.json({
         net: NET,
         address,

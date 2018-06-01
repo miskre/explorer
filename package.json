@@ -6,7 +6,8 @@
   "scripts": {
     "nodemon": "nodemon --exec babel-node index.js",
     "start": "babel-node index.js",
-    "pm2": "PORT=3000 pm2 start index.js --interpreter babel-node"
+    "pm2": "PORT=3000 pm2 start index.js --interpreter babel-node",
+    "update": "pm2 stop all && git pull && cd gui.v2 && npm run build && cd .. && pm2 start all"
   },
   "author": "Gia <gia@coa.vn>",
   "license": "ISC",

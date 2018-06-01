@@ -58,7 +58,7 @@
                         router-link.name.hash(:to="{name: 'Block', params: {_id: transaction.blockhash}}" v-text="__h(transaction.blockhash)")
                         timeago.time(:since="transaction.blocktime * 1000")
 
-        // debug(v-if="transaction" data-aos="fade-up" :value="transaction")
+        debug(v-if="transaction" data-aos="fade-up" :value="transaction")
 </template>
 
 <script>

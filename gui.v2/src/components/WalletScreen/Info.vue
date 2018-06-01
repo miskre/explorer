@@ -32,9 +32,8 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import {__n} from '@/common/helpers'
-import Neon from '@/common/neon'
-import api, {hex2txid} from '@/common/api'
-import {assetBySymbol} from '@/common/constants'
+import api from '@/common/api'
+import Blockchain, {assetBySymbol, hex2txid} from '@/common/blockchain'
 import Asset from '@/components/Asset'
 import Loading from '@/components/Loading'
 
@@ -130,8 +129,8 @@ export default {
     doClaim () {
       try {
         this.isClaiming = true
-        const tx = Neon.create.claimTx(this.account.address, this.claims)
-        Neon.sign.transaction(tx, this.account.privateKey)
+        const tx = Blockchain.create.claimTx(this.account.address, this.claims)
+        Blockchain.sign.transaction(tx, this.account.privateKey)
         const txid = tx.hash
         const serializedTx = tx.serialize()
         console.log('tx', serializedTx)

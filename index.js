@@ -10,9 +10,6 @@ const app = express()
 
 app.set('view engine', 'pug')
 app.set('views', './views')
-app.use(history({
-  index: '/index.html'
-}))
 app.use('/assets', express.static('./assets'))
 app.use('/', express.static('./gui.v2/dist'))
 app.use(bodyParser.json())
@@ -85,6 +82,9 @@ function switcher(req, res, next) {
 }
 
 app.use('/api', switcher, explorer)
+app.use(history({
+  index: '/index.html'
+}))
 app.use('/sync', sync)
 
 app.listen(port)

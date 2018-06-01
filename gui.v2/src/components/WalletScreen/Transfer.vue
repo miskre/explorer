@@ -32,9 +32,13 @@
 import _ from 'underscore'
 import {mapGetters, mapActions} from 'vuex'
 import {__n} from '@/common/helpers'
-import {assetHashes, assetByHash} from '@/common/constants'
-import Neon, {wallet} from '@/common/neon'
-import api, {hex2txid} from '@/common/api'
+import Blockchain, {
+  wallet,
+  assetHashes,
+  assetByHash,
+  hex2txid
+} from '@/common/blockchain'
+import api from '@/common/api'
 import Loading from '@/components/Loading'
 import Asset from '@/components/Asset'
 
@@ -181,7 +185,7 @@ export default {
 
     async doSend () {
       this.isSending = true
-      let tx = Neon.create.tx({type: 128})
+      let tx = Blockchain.create.tx({type: 128})
       tx.addOutput(this.symbol, this.amount, this.toAddress)
         // .addRemark(`send ${this.amount}${this.symbol}`)
         .calculate(this._balance)

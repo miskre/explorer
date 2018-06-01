@@ -8,7 +8,7 @@
 
 <script>
 import BigNumber from 'bignumber.js'
-import {assetBySymbol, assetByHash} from '@/common/constants'
+import {assetBySymbol, assetByHash} from '@/common/blockchain'
 import {__n} from '@/common/helpers'
 
 export default {

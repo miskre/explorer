@@ -1,7 +1,8 @@
 import Vue from 'vue'
-import _ from 'underscore'
+import {each, map} from 'underscore'
 import * as types from '../mutation-types'
-import api, {txid2hex} from '@/common/api'
+import api from '@/common/api'
+import {txid2hex} from '@/common/blockchain'
 
 const state = {
   account: null,
@@ -61,10 +62,10 @@ const actions = {
     commit(types.BALANCE_UPDATED, null)
     api.getAddressBalance(state.account.address)
       .then(res => {
-        _.each(res.data, (v, k) => {
+        each(res.data, (v, k) => {
           if (k === 'net' || k === 'address') return
           if (v.unspent) {
-            v.unspent = _.map(v.unspent, i => {
+            v.unspent = map(v.unspent, i => {
               if (i.txid) i.txid = txid2hex(i.txid)
               return i
             })
@@ -81,7 +82,7 @@ const actions = {
     api.getAddressClaims(state.account.address)
       .then(res => {
         if (res.data.claims) {
-          res.data.claims = _.map(res.data.claims, i => {
+          res.data.claims = map(res.data.claims, i => {
             if (i.txid) i.txid = txid2hex(i.txid)
             return i
           })
