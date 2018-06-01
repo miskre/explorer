@@ -35,9 +35,11 @@ const webpackConfig = merge(baseWebpackConfig, {
       'process.env': env
     }),
     new webpack.LoaderOptionsPlugin({
-      options: {
-        stylus: {
-          use: [nib()]
+      test: /\.styl$/,
+      stylus: {
+        default: {
+          use: [nib()],
+          import: ['~nib/lib/nib/index.styl']
         }
       }
     }),
