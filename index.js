@@ -11,7 +11,7 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', './views')
 app.use('/assets', express.static('./assets'))
-app.use('/', express.static('./gui.v2/dist'))
+app.use('/', express.static('./gui/dist'))
 app.use(bodyParser.json())
 app.use(cors())
 

@@ -1,73 +1,101 @@
 <template lang="pug">
   #app
-    Desktop(:icons="icons")
-    WindowsManager(:windows="windows")
-    // router-view
+    transition(name="fade")
+      #menu(v-if="menuDisplayed" @click="toggleMenu")
+        ul.navigations
+          li
+            a(target="_blank" href="https://home.miskre.org") home
+          li
+            router-link(:to="{name: 'Explorer'}") explorer
+          li
+            router-link(:to="{name: 'Wallet'}") wallet
+    #top-bar
+      a.menu(href="#" data-aos="fade-right" data-aos-duration="1000" @click.stop.prevent="toggleMenu")
+        img(src="@/assets/menu.svg")
+      router-link.logo(:to="{name: 'Explorer'}" data-aos="fade-down" data-aos-duration="1000")
+        img(src="@/assets/logo.svg")
+      block primary
+    #social-bar(data-aos="fade-right" data-aos-duration="1000")
+      a(target="_blank" :href="links.twitter" v-if="links.twitter")
+        img(src="@/assets/twitter.svg")
+      a(target="_blank" :href="links.facebook" v-if="links.facebook")
+        img(src="@/assets/facebook.svg")
+      a(target="_blank" :href="links.medium" v-if="links.medium")
+        img(src="@/assets/medium.svg")
+      a(target="_blank" :href="links.reddit" v-if="links.reddit")
+        img(src="@/assets/reddit.svg")
+      a(target="_blank" :href="links.telegram" v-if="links.telegram")
+        img(src="@/assets/telegram.svg")
+      a(target="_blank" :href="links.slack" v-if="links.slack")
+        img(src="@/assets/slack.svg")
+    #preload(v-if="!loaded")
+      .text
+        .progress
+          img.mis(src="@/assets/mis.svg")
+          img.kre(src="@/assets/kre.svg")
+        span(v-if="language === 'ru'") Привет_мир
+        span(v-else-if="language === 'es'") hola_mundo
+        span(v-else-if="language === 'zh'") 你好，世界
+        span(v-else-if="language === 'ja'") こんにちは世界
+        span(v-else-if="language === 'ko'") 안녕_세상
+        span(v-else-if="language === 'de'") hallo_welt
+        span(v-else) hello_world
+    modals-container
+    v-dialog
+    router-view
 </template>
 
 <script>
-import WindowsManager from './components/WindowsManager'
-import Desktop from './components/Desktop'
-import { mapGetters } from 'vuex'
+import aos from 'aos'
+import 'aos/dist/aos.css'
 
 export default {
   name: 'App',
-  components: {
-    WindowsManager,
-    Desktop
+
+  metaInfo: {
+    title: 'explorer',
+    titleTemplate: 'miskre - %s'
   },
+
   data () {
     return {
-      icons: {
-        explorer: {
-          icon: require('./assets/icon.explorer.svg'),
-          label: 'explorer',
-          id: 'explorer',
-          type: 'Explorer',
-          params: {}
-        },
-        homepage: {
-          icon: require('./assets/icon.homepage.svg'),
-          label: 'homepage',
-          type: 'Link',
-          link: 'https://home.miskre.org'
-        },
-        whitelist: {
-          icon: require('./assets/icon.whitelist.svg'),
-          label: 'whitelist',
-          type: 'Link',
-          link: 'https://whitelist.miskre.org'
-        },
-        documentation: {
-          icon: require('./assets/icon.documentation.svg'),
-          id: 'documentation',
-          label: 'documentation',
-          type: 'Documentation',
-          params: {}
-        },
-        guide: {
-          icon: require('./assets/icon.guide.svg'),
-          id: 'guide',
-          label: 'guide',
-          type: 'Guide',
-          params: {}
-        },
-        wallet: {
-          icon: require('./assets/icon.package.svg'),
-          id: 'wallet',
-          label: 'wallet',
-          type: 'Wallet',
-          params: {}
-        }
+      menuDisplayed: false,
+      loaded: false,
+      language: 'en',
+      supported: {
+        en: 'English',
+        de: 'German',
+        zh: 'Chinese',
+        ja: 'Japanese',
+        ko: 'Korean',
+        es: 'Spanish',
+        ru: 'Russian'
+      },
+      links: {
+        appstore: '#',
+        googleplay: '#',
+        facebook: null,
+        instagram: null,
+        reddit: 'https://www.reddit.com/r/miskre/',
+        twitter: 'https://twitter.com/Miskre_Global',
+        medium: 'https://medium.com/miskre',
+        slack: 'https://chat.miskre.org',
+        telegram: 'https://t.me/miskre'
       }
     }
   },
-  computed: {
-    ...mapGetters({
-      windows: 'ui/windows'
-    })
+
+  methods: {
+    toggleMenu () {
+      this.menuDisplayed = !this.menuDisplayed
+    }
+  },
+
+  mounted () {
+    this.loaded = true
+    aos.init()
   }
 }
 </script>
 
-<style lang="stylus" src="./assets/explorer.styl" />
+<style lang="stylus" src="./assets/index.styl" />

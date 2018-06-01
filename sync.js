@@ -1,4 +1,4 @@
-import _ from 'underscore'
+import {each} from 'underscore'
 import async from 'async'
 import express from 'express'
 import {
@@ -36,7 +36,7 @@ async function syncTransaction(hash, index) {
       // contract transaction
       if (typeof transaction.vin !== 'undefined') {
         const verbose = []
-        _.each(transaction.vin, async (vin) => {
+        each(transaction.vin, async (vin) => {
           const ref = await lookupTransaction(vin.txid)
           if (ref) {
             const res = ref.vout[vin.vout]
@@ -50,7 +50,7 @@ async function syncTransaction(hash, index) {
       if (typeof transaction.claims !== 'undefined') {
         const claims = []
         const keys = []
-        _.each(transaction.claims, async (claim) => {
+        each(transaction.claims, async (claim) => {
           keys.push(`${claim.txid}_${claim.vout}`)
           const ref = await lookupTransaction(claim.txid)
           if (ref) {
