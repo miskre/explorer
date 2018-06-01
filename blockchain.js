@@ -69,7 +69,7 @@ export function calculateBonus (claims) {
       .plus(BigNumber(claim.value).multipliedBy(amount))
   })
   return claimedAmount
-    .dividedToIntegerBy(ASSETS.KRE.total)
+    .dividedBy(ASSETS.KRE.total)
     .toString()
 }
 

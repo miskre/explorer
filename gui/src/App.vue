@@ -14,6 +14,7 @@
         img(src="@/assets/menu.svg")
       router-link.logo(:to="{name: 'Explorer'}" data-aos="fade-down" data-aos-duration="1000")
         img(src="@/assets/logo.svg")
+        span.on-testnet Testnet
       block primary
     #social-bar(data-aos="fade-right" data-aos-duration="1000")
       a(target="_blank" :href="links.twitter" v-if="links.twitter")
@@ -28,18 +29,6 @@
         img(src="@/assets/telegram.svg")
       a(target="_blank" :href="links.slack" v-if="links.slack")
         img(src="@/assets/slack.svg")
-    #preload(v-if="!loaded")
-      .text
-        .progress
-          img.mis(src="@/assets/mis.svg")
-          img.kre(src="@/assets/kre.svg")
-        span(v-if="language === 'ru'") Привет_мир
-        span(v-else-if="language === 'es'") hola_mundo
-        span(v-else-if="language === 'zh'") 你好，世界
-        span(v-else-if="language === 'ja'") こんにちは世界
-        span(v-else-if="language === 'ko'") 안녕_세상
-        span(v-else-if="language === 'de'") hallo_welt
-        span(v-else) hello_world
     modals-container
     v-dialog
     router-view
@@ -59,6 +48,7 @@ export default {
 
   data () {
     return {
+      onTestnet: true,
       menuDisplayed: false,
       loaded: false,
       language: 'en',

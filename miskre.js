@@ -18,9 +18,9 @@ export const ASSETS = {
     name: 'KRE - Utility Token',
     hash: '0xa71db467123f2fbd39ad759b1d9f0b7a9375c32555fc357ec348d0cc32af0d2e',
     total: 20000000000,
-    fractionalSize: 6,
-    format: '0,0.000000',
-    step: 0.000001
+    fractionalSize: 8,
+    format: '0,0.00000000',
+    step: 0.00000001
   }
 }
 

@@ -44,6 +44,23 @@ export default {
       this.showPassword = false
     },
     generate () {
+      if (this.password.length === 0) return this.doGenerate()
+      this.$modal.show('dialog', {
+        title: 'Generate New Wallet',
+        text: 'Generate private key with password will take a while. All cryptography randomizing happen in your browser and might make it freeze in seconds.',
+        buttons: [{
+          title: 'Create',
+          handler: () => {
+            this.doGenerate()
+            this.$modal.hide('dialog')
+          }
+        }, {
+          title: 'Cancel',
+          default: true
+        }]
+      })
+    },
+    doGenerate () {
       const a = new wallet.Account()
       const w = {
         type: 'Normal',

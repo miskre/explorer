@@ -1,7 +1,7 @@
 <template lang="pug">
   .roll(data-aos="fade-up")
     .card
-      .caption FAQs
+      .caption Miskre Wallet
       .content
         faqs(:faqs="faqs")
 </template>

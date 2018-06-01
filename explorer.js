@@ -266,10 +266,10 @@ router.get('/addresses/:id/claims', (req, res) => {
       res.json({
         net: NET,
         address,
-        // sent,
-        // received,
-        // unspent,
-        // claimed,
+        sent,
+        received,
+        unspent,
+        claimed,
         claims: blockDiffs,
         available: calculateBonus(blockDiffs),
         unavailable: calculateBonus(unspentDiffs)
