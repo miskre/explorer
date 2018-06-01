@@ -11,7 +11,7 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', './views')
 app.use('/assets', express.static('./assets'))
-app.use('/api', switcher, explorer)
+app.use('/api', explorer)
 app.use('/sync', sync)
 app.use(history({
   index: '/index.html'
