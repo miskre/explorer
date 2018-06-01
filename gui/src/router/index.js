@@ -38,7 +38,7 @@ export default new Router({
       component: AddressScreen
     },
     {
-      path: '/wallets',
+      path: '/wallet',
       component: WalletScreen,
       children: [
         {
