@@ -59,7 +59,7 @@
             router-link.previous(v-if="previous" :to="{name: 'Block', params: {_id: previous}}" title="previous") ←
             router-link.next(v-if="next" :to="{name: 'Block', params: {_id: next}}" :title="next") →
 
-        // debug(:value="block" v-if="block")
+        debug(:value="block" v-if="block")
 </template>
 
 <script>
