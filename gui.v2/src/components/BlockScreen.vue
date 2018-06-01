@@ -31,7 +31,7 @@
                       dd(v-text="block.version")
                       dt Time
                       dd
-                        timeago.time(:since="block.time * 1000")
+                        timeago.time(:autoUpdate="1" :since="block.time * 1000")
                       dt Confirms
                       dd(v-text="block.confirmations")
               li
@@ -59,7 +59,7 @@
             router-link.previous(v-if="previous" :to="{name: 'Block', params: {_id: previous}}" title="previous") ←
             router-link.next(v-if="next" :to="{name: 'Block', params: {_id: next}}" :title="next") →
 
-        debug(:value="block" v-if="block")
+        // debug(:value="block" v-if="block")
 </template>
 
 <script>

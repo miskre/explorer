@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "bigi": "^1.4.2",
     "bignumber.js": "^7.0.1",
+    "crip-vue-loading": "^1.2.5",
     "crypto-browserify": "^3.12.0",
     "ecurve": "^1.0.6",
     "js-sha3": "^0.7.0",

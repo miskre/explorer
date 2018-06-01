@@ -16,6 +16,9 @@ import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import VeeValidate from 'vee-validate'
 import Debug from '@/components/Debug'
 
+import CripLoading from 'crip-vue-loading'
+import api from '@/common/api'
+
 Vue.config.productionTip = false
 
 Vue.use(Vuex)
@@ -31,6 +34,11 @@ Vue.use(VueTimeago, {
   locales: {
     'en-US': require('vue-timeago/locales/en-US.json')
   }
+})
+
+Vue.use(CripLoading, {
+  axios: api,
+  applyOnRouter: true
 })
 
 Vue.component('scroller', VuePerfectScrollbar)

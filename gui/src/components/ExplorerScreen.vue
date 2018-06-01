@@ -18,7 +18,7 @@
                       li(v-for="b, k in blocks" :key="k")
                         .stamp.block
                           router-link.hash.name(:to="{name: 'Block', params: {_id: b.hash}}" v-text="b.hash")
-                          timeago.time(:since="b.time * 1000")
+                          timeago.time(:autoUpdate="1" :since="b.time * 1000")
             .cl.md-6
               .card
                 .caption Latest Transactions
@@ -29,7 +29,7 @@
                       li(v-for="t, k in transactions" :key="k")
                         .stamp.transaction
                           router-link.txid.name(:to="{name: 'Transaction', params: {_id: t.txid}}" v-text="t.txid")
-                          timeago.time(:since="t.blocktime * 1000")
+                          timeago.time(:autoUpdate="1" :since="t.blocktime * 1000")
 </template>
 
 <script>
@@ -51,6 +51,7 @@ export default {
 
   data () {
     return {
+      interval: null,
       info: {
         lastBlockIndex: 0
       },
@@ -74,6 +75,11 @@ export default {
 
   mounted () {
     this.fetch()
+    this.interval = window.setInterval(this.fetch, 10000)
+  },
+
+  beforeDestroy () {
+    if (this.interval) clearInterval(this.interval)
   }
 }
 </script>
