@@ -20,6 +20,7 @@
     "crip-vue-loading": "^1.2.5",
     "crypto-browserify": "^3.12.0",
     "ecurve": "^1.0.6",
+    "github-api": "^3.0.0",
     "js-sha3": "^0.7.0",
     "nib": "^1.1.2",
     "numeral": "^2.0.6",

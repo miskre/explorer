@@ -66,6 +66,95 @@ span.on-testnet
     animation-iteration-count infinite
     animation-direction both
 
+.cover
+  position relative
+  width 100%
+  background-color #111
+  > .bg
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    background-repeat no-repeat
+    background-size cover
+    background-position center
+    &.static
+      background-attachment fixed
+    &:after
+      content ''
+      position absolute
+      display block
+      top 0
+      right 0
+      bottom 0
+      left 0
+      background radial-gradient(circle at 0 0, #111 15%, rgba(#111, .2))
+  > .fg
+    z-index 1
+    width 100%
+    padding 120px 0 10px 0
+    .safe
+      @media small-only
+        padding-left 20px
+        padding-right 20px
+    &.static
+      background-attachment fixed
+    &.full-width
+      max-width none
+    @media medium
+      padding 170px 20px 10px 120px
+    @media large
+      padding 200px 20px 10px 120px
+    .title
+      margin-bottom 20px
+      @media medium
+        margin-bottom 30px
+        display flex
+      @media large
+        margin-bottom 40px
+      h1
+        font-weight bold
+        line-height 1.15em
+        color white
+        font-size 40px
+        @media medium
+          font-size 72px
+          line-height 1.1em
+        @media large
+          line-height 1em
+          font-size 100px
+        small
+          font-size 14px
+          line-height 1em
+      h2
+        font-weight bold
+        line-height 1em
+        color white
+        font-size 24px
+        @media medium
+          font-size 32px
+        @media large
+          font-size 48px
+      p
+        font-size 13px
+        color #999
+        line-height 22px
+        font-weight normal
+        max-width 600px
+        margin-top 15px
+        @media medium
+          font-size 14px
+          margin-top 20px
+          padding-left 30px
+        @media large
+          margin-top 25px
+    .description
+      font-size 14px
+      color #999
+      line-height 1.5em
+      max-width 600px
+
 pre.debug
   overflow-x scroll
 
