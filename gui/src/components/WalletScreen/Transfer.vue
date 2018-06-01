@@ -131,6 +131,7 @@ export default {
     },
 
     send () {
+      this.toAddress = this.toAddress.trim()
       this.$modal.show('dialog', {
         title: 'Send asset confirm',
         text: `Do you really want to send ${__n(this.amount, this.type.format)} ${this.symbol} to "${this.toAddress}"?`,
