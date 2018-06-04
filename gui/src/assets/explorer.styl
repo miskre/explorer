@@ -274,8 +274,12 @@ ul.balances
 
 ul.faqs
   margin-bottom 10px
-  > li:not(:last-child)
-    margin-bottom 15px
+  > li
+    &:not(:last-child)
+      margin-bottom 15px
+    &.collapsed
+      > .answer
+        display none
   .question
     color snow
     margin-bottom 10px

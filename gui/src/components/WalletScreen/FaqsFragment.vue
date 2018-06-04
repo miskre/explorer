@@ -3,7 +3,7 @@
     .card
       .caption Miskre Wallet
       .content
-        faqs(:faqs="faqs")
+        faqs(:data="faqs")
 </template>
 
 <script>
