@@ -8,7 +8,10 @@ export default new mongoose.Schema({
   },
   txid: String,
   size: Number,
-  type: String,
+  type: {
+    type: String,
+    index: true,
+  },
   version: Number,
   attributes: Mixed,
   vin: Mixed,
@@ -19,7 +22,10 @@ export default new mongoose.Schema({
   nonce: Number,
   blockhash: String,
   confirmations: Number,
-  blocktime: Number,
+  blocktime: {
+    type: Number,
+    index: true
+  },
   claims_keys_v1: Mixed,
   vin_verbose: Mixed,
   claims_verbose: Mixed,

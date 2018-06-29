@@ -35,21 +35,23 @@ async function syncTransaction(hash, index) {
       // contract transaction
       if (typeof transaction.vin !== 'undefined') {
         const verbose = []
-        each(transaction.vin, async (vin) => {
+        for (let i = 0; i < transaction.vin.length; i++) {
+          const vin = transaction.vin[i]
           const ref = await lookupTransaction(vin.txid)
           if (ref) {
             const res = ref.vout[vin.vout]
             res.txid = vin.txid
             verbose.push(res)
           }
-        })
+        }
         transaction.vin_verbose = verbose
       }
       // claim transaction
       if (typeof transaction.claims !== 'undefined') {
         const claims = []
         const keys = []
-        each(transaction.claims, async (claim) => {
+        for (let i = 0; i < transaction.claims.length; i++) {
+          const claim = transaction.claims[i]
           keys.push(`${claim.txid}_${claim.vout}`)
           const ref = await lookupTransaction(claim.txid)
           if (ref) {
@@ -57,12 +59,12 @@ async function syncTransaction(hash, index) {
             res.txid = claim.txid
             claims.push(res)
           }
-        })
+        }
         transaction.claims_verbose = claims
         transaction.claims_keys_v1 = keys
       }
       // store into database
-      Transaction.update({ _id: transaction.txid }, { _id: transaction.txid, ...transaction }, { upsert: true }, (e, res) => {
+      Transaction.findOneAndUpdate({ _id: transaction.txid }, { _id: transaction.txid, ...transaction }, { upsert: true }, (e, res) => {
         if (e) reject(e)
         else resolve(res)
       })
@@ -80,7 +82,7 @@ async function syncBlock(index) {
         console.log('transaction.sync: ' + block.tx[i].txid)
         await syncTransaction(block.tx[i].txid, block.index)
       }
-      Block.update({ _id: block.hash }, { _id: block.hash, ...block }, { upsert: true }, (e, res) => {
+      Block.findOneAndUpdate({ _id: block.hash }, { _id: block.hash, ...block }, { upsert: true }, (e, res) => {
         if (e) reject(e)
         else resolve(res)
       })

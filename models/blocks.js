@@ -12,13 +12,22 @@ export default new mongoose.Schema({
   version: Number,
   previousblockhash: String,
   merkleroot: String,
-  time: Number,
-  index: Number,
+  time: {
+    type: Number,
+    index: true
+  },
+  index: {
+    type: Number,
+    index: true
+  },
   nonce: String,
   nextconsensus: String,
   script: Mixed,
   tx: [Transaction],
-  confirmations: Number,
+  confirmations: {
+    type: Number,
+    index: true
+  },
   nextblockhash: String
 }, {
   versionKey: false
