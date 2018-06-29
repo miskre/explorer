@@ -21,7 +21,8 @@ export default new mongoose.Schema({
   confirmations: Number,
   blocktime: Number,
   claims_keys_v1: Mixed,
-  vin_verbose: Mixed
+  vin_verbose: Mixed,
+  claims_verbose: Mixed,
 }, {
   versionKey: false
 })
