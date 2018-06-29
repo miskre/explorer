@@ -1,15 +1,14 @@
 import {each} from 'underscore'
 import async from 'async'
 import express from 'express'
+
 import {
-  State,
   Block,
   Transaction,
-  Address,
   getState,
   setState,
   deleteState
-} from './storage'
+} from './models'
 
 import * as rpc from './rpc'
 

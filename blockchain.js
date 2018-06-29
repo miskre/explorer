@@ -12,13 +12,12 @@ import async from 'async'
 import BigNumber from 'bignumber.js'
 
 import {
-  Address,
   Block,
   Transaction,
   getState,
   setState,
   deleteState
-} from './storage'
+} from './models'
 
 import {
   NET,
