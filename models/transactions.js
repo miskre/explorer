@@ -21,6 +21,7 @@ export default new mongoose.Schema({
   scripts: Mixed,
   nonce: Number,
   blockhash: String,
+  block_index: Number,
   confirmations: Number,
   blocktime: {
     type: Number,
