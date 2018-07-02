@@ -27,6 +27,7 @@ export default new mongoose.Schema({
     type: Number,
     index: true
   },
+  claims: Mixed,
   claims_keys_v1: Mixed,
   vin_verbose: Mixed,
   claims_verbose: Mixed,
