@@ -15,14 +15,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: 'WalletGenerateKeystore',
-
-  props: {
-    wallet: {
-      required: true
-    }
-  },
 
   data () {
     return {
@@ -30,6 +25,12 @@ export default {
       showPassword: false
     }
   },
+
+  computed () {
+    ...mapGetters({
+      account: 'users/account'
+    })
+  }
 
   methods: {
 

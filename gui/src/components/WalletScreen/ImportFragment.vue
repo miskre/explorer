@@ -25,7 +25,7 @@
             .card
               .caption Generate New Keystore
               .content
-                generate-keystore(:wallet="account")
+                generate-keystore
         template(v-else)
           li
             .card
