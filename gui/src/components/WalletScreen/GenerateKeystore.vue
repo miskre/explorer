@@ -26,11 +26,11 @@ export default {
     }
   },
 
-  computed () {
+  computed: {
     ...mapGetters({
       account: 'users/account'
     })
-  }
+  },
 
   methods: {
 
